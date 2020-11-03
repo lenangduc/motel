@@ -1,0 +1,2 @@
+# motel
+rental motel
