@@ -1,0 +1,193 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>vn.yotel</groupId>
+  <artifactId>motel</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <modules>
+	<module>motel-core</module>
+	<module>motel-cms</module>
+  </modules>
+  <name>jobsearch247</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <!-- Maven plugins -->
+    <maven-compiler-plugin.version>3.3</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
+    <maven-resources-plugin.version>2.7</maven-resources-plugin.version>
+    <maven-source-plugin.version>2.4</maven-source-plugin.version>
+    <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
+    <maven-war-plugin.version>2.6</maven-war-plugin.version>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven-deploy-plugin-version>2.8.2</maven-deploy-plugin-version>
+    <maven-javadoc-plugin-version>2.10.3</maven-javadoc-plugin-version>
+    <maven-install-plugin-version>2.5.2</maven-install-plugin-version>
+    <jaxws-maven-plugin-version>1.12</jaxws-maven-plugin-version>
+    <build-helper-maven-plugin-version>1.9.1</build-helper-maven-plugin-version>
+    <!-- servlet and jsp -->
+    <!-- <javax.servlet-api.version>3.0.1</javax.servlet-api.version> -->
+    <javax.servlet-api.version>3.1.0</javax.servlet-api.version>
+    <jsp-api.version>2.1</jsp-api.version>
+    <jstl-verson>1.2</jstl-verson>
+    <!-- jetty/tomcat server -->
+    <jetty-maven-plugin.version>9.2.6.v20141205</jetty-maven-plugin.version>
+    <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
+
+
+    <!--  Hibernate & JPA 2.0 -->
+    <!--
+    <hibernate-version>3.6.1.Final</hibernate-version>
+    <hibernate-validator-version>4.1.0.Final</hibernate-validator-version>
+    <hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
+    <validation-api-version>1.1.0.Final</validation-api-version>
+    -->
+    <!--  Hibernate & JPA 2.1 -->
+    <hibernate-version>4.3.8.Final</hibernate-version>
+    <hibernate-entitymanager-version>4.3.11.Final</hibernate-entitymanager-version>
+    <hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
+    <hibernate-validator-version>5.1.3.Final</hibernate-validator-version>
+    <hibernate-jpa-version>1.0.1.Final</hibernate-jpa-version>
+    <validation-api-version>1.1.0.Final</validation-api-version>
+    <jta-version>1.1</jta-version>
+
+
+    <!-- Spring Ehcache -->
+    <ehcache-version>2.9.0</ehcache-version>
+    <ehcache-spring-annotations-version>1.2.0</ehcache-spring-annotations-version>
+    <!-- spring modules -->
+    <spring-version>4.3.3.RELEASE</spring-version>
+    <spring-webflow-version>2.4.0.RELEASE</spring-webflow-version>
+    <spring-messaging-version>4.2.6.RELEASE</spring-messaging-version>
+    <spring-batch-core-version>3.0.3.RELEASE</spring-batch-core-version>
+    <spring-ws-core-version>2.2.0.RELEASE</spring-ws-core-version>
+
+    <!--  spring social  -->
+    <spring-social-version>1.1.0.RELEASE</spring-social-version>
+    <spring-social-facebook-version>1.1.1.RELEASE</spring-social-facebook-version>
+
+
+    <!-- spring integrate -->
+    <spring.integration.version>4.1.4.RELEASE</spring.integration.version>
+    <spring.integration.aws.version>0.5.0.RELEASE</spring.integration.aws.version>
+
+    <!-- Spring AMQP -->
+    <spring-rabbit-version>1.4.3.RELEASE</spring-rabbit-version>
+
+    <!-- spring security and oauth 2 -->
+    <!-- <spring-security-version>3.2.7.RELEASE</spring-security-version> -->
+    <spring-security-version>4.0.2.RELEASE</spring-security-version>
+    <spring-security-oauth2-version>2.0.7.RELEASE</spring-security-oauth2-version>
+
+    <!--  Spring data -->
+    <spring-data-common-version>1.10.2.RELEASE</spring-data-common-version>
+    <spring-data-jpa-version>1.8.2.RELEASE</spring-data-jpa-version>
+    <spring-data-mongodb-version>1.6.2.RELEASE</spring-data-mongodb-version>
+    <spring-data-redis-version>1.5.2.RELEASE</spring-data-redis-version>
+    <spring-data-gemfire-version>1.5.2.RELEASE</spring-data-gemfire-version>
+    <jedis-version>2.6.2</jedis-version>
+    <!-- QueryDsl -->
+    <querydsl-version>3.6.0</querydsl-version>
+
+    <!--  Spring reactor  -->
+    <reactor-spring-context>1.1.3.RELEASE</reactor-spring-context>
+
+
+    <!-- Thymeleaf and tiles  -->
+    <thymeleaf-version>2.1.4.RELEASE</thymeleaf-version>
+    <thymeleaf-extras-springsecurity4-version>2.1.2.RELEASE</thymeleaf-extras-springsecurity4-version>
+    <!--<thymeleaf-extras-springsecurity3-version>2.1.1.RELEASE</thymeleaf-extras-springsecurity3-version> -->
+    <thymeleaf-extras-conditionalcomments-version>2.1.1.RELEASE</thymeleaf-extras-conditionalcomments-version>
+    <thymeleaf-extras-data-attribute-version>1.3</thymeleaf-extras-data-attribute-version>
+    <html5valdialect-version>2.0.0</html5valdialect-version>
+    <datatables-thymeleaf-version>0.10.1</datatables-thymeleaf-version>
+    <jodatime-thymeleaf-dialect-version>1.3</jodatime-thymeleaf-dialect-version>
+    <thymeleaf-layout-dialect>1.2.1</thymeleaf-layout-dialect>
+    <thymeleaf-extras-java8time-version>2.1.0.RELEASE</thymeleaf-extras-java8time-version>
+    <!--  tiles and velocity -->
+    <tiles-version>3.0.5</tiles-version>
+    <velocity-version>1.7</velocity-version>
+
+
+
+
+    <!-- logging -->
+    <logback.version>1.1.3</logback.version>
+    <org.slf4j.version>1.7.12</org.slf4j.version>
+    <jcloverslf4j.version>1.7.12</jcloverslf4j.version>
+    <logback-json-version>0.1.2</logback-json-version>
+    <janino-version>2.7.8</janino-version>
+    <!-- Jersey   -->
+    <javax.ws.rs-version>2.0.1</javax.ws.rs-version>
+    <jersey-version>2.18</jersey-version>
+    <jaxb-api-version>2.2.11</jaxb-api-version>
+
+    <!--  apache http client  -->
+    <httpclient-version>4.3.6</httpclient-version>
+    <httpcore-version>4.3.3</httpcore-version>
+    <!--  jackson -->
+    <!-- <jackson-annotations-version>2.4.3</jackson-annotations-version> -->
+    <jackson-annotations-version>2.5.4</jackson-annotations-version>
+    <jackson-mapper-asl-version>1.9.5</jackson-mapper-asl-version>
+
+    <!-- apache commons  -->
+    <commons-lang3-version>3.3.2</commons-lang3-version>
+    <commons-email-version>1.3.3</commons-email-version>
+    <commons-collections4-version>4.0</commons-collections4-version>
+    <commons-digester3-version>3.2</commons-digester3-version>
+    <commons-io-version>2.2</commons-io-version>
+    <commons-fileupload-version>1.3.1</commons-fileupload-version>
+    <commons-codec-version>1.9</commons-codec-version>
+    <commons-validator-version>1.4.1</commons-validator-version>
+
+    <!--  java mail  -->
+    <javax.mail-version>1.4.3</javax.mail-version>
+
+    <!--  database and pool  -->
+    <org.hsqldb-version>2.2.9</org.hsqldb-version>
+    <commons-dbcp-version>1.4</commons-dbcp-version>
+    <commons-dbcp2-version>2.1</commons-dbcp2-version>
+    <ojdbc6-version>11.2.0</ojdbc6-version>
+    <mysql-connector-java-version>5.1.34</mysql-connector-java-version>
+    <!--  date and time  -->
+    <joda-time-version>2.2</joda-time-version>
+    <joda-time-jsptags-version>1.1.1</joda-time-jsptags-version>
+
+    <!--  QR CODE  -->
+    <net.glxn.qrgen-version>2.0</net.glxn.qrgen-version>
+
+    <!-- quartz scheduler -->
+    <quartz-version>2.2.1</quartz-version>
+
+    <!--  unit test llib  -->
+    <json-path-version>1.2.0</json-path-version>
+    <mockito-version>1.9.5</mockito-version>
+    <junit-version>4.11</junit-version>
+    <hamcrest-version>1.3</hamcrest-version>
+    <testng-version>6.8.17</testng-version>
+
+    <!--  bean utils  -->
+    <commons-beanutils-version>1.9.2</commons-beanutils-version>
+
+    <xml-apis-version>1.4.01</xml-apis-version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>4.1.9.RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.12</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>

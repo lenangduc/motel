@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Thêm mới tài khoản</title>
+    <content th:replace="fragments/init :: head"></content>
+    <style>
+        #errorMessage {
+            padding: 8px;
+            background-color: #ff816b;
+        }
+        .role-content {
+            border-radius: 7px;
+            padding: 11px 12px;
+            border: 1px solid #d4d4d4;
+        }
+        .role-content .label-role:last-child {
+            margin-bottom: 0;
+        }
+        .label-role span {
+            font-size: .8em!important;
+            letter-spacing: .1em;
+            cursor: pointer;
+            background: var(--main-color);
+            padding: 2px 5px;
+            color: #fff;
+            line-height: 1;
+            font-weight: 700;
+        }
+        .label-role input {
+            margin-top: 0;
+        }
+        .label-role {
+            display: flex;
+            align-items: center;
+        }
+        .label-role input {
+            margin-right: 7px;
+        }
+        @media(max-width: 767px) {
+            .label-role {
+                margin-bottom: 7px;
+            }
+            .label-role input {
+                height: unset!important;
+            }
+            .label-role span {
+                font-size: .85em!important;
+            }
+        }
+    </style>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <content th:replace="fragments/top-nav :: content"></content>
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row breadcrumb-wrapper">
+                <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
+                    <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/account/user_list.html}" data-toggle="tooltip" title="Trở Về Danh Sách">Danh sách tài khoản</a>
+                        </li>
+                        <li class="breadcrumb-item active">Thêm mới</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="title-page-custom">
+                Thêm mới tài khoản
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="addForm" th:object="${user}" th:action="@{/account/user_add.html}"
+                                  method="POST">
+                                <div class="alert alert-danger" id="errorMessage" style="text-align:left; color: white; font-weight: bold; font-size: 13px;"
+                                     th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
+                                <input type="hidden" name="txtPassword" id="txtPassword" th:value="${defaultPassword}"/>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Tên đăng nhập&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="form-field-username" name="userName" th:field="*{userName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Email&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="form-field-email" name="email" th:field="*{email}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Họ tên&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="form-field-fullname" name="fullName" th:field="*{fullName}"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Giới tính</label>
+                                        <div>
+                                            <select class="form-control selectpicker" id="form-field-gender" th:field="*{gender}">
+                                                <option value="0">Nam</option>
+                                                <option value="1">Nữ</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label>Mật khẩu</label>
+                                        <div>
+                                            <input class="form-control" type="text" id="form-field-password" th:field="*{password}" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" hidden="hidden">
+                                        <label>Xác nhận mật khẩu</label>
+                                        <div>
+                                            <input class="form-control" type="text" id="form-field-repassword" th:field="*{verifyPassword}" readonly/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Xác minh tài khoản</label>
+                                        <div>
+                                            <select class="form-control selectpicker" id="form-field-verify" th:field="*{isVerified}">
+                                                <option value="0">Đã xác minh</option>
+                                                <option value="1">Chưa xác minh</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Trạng thái</label>
+                                        <div>
+                                            <select class="form-control selectpicker" id="form-field-status" th:field="*{status}">
+                                                <option value="0">Hoạt động</option>
+                                                <option value="1">Ngừng hoạt động</option>
+                                                <option value="2">Bị khóa</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group" hidden="hidden">
+                                        <label>Loại tài khoản</label>
+                                        <div>
+                                            <select class="form-control selectpicker" id="form-field-userType" th:field="*{userType}">
+                                                <option value="2">Partner</option>
+                                                <option value="1">Org</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Phân quyền</label>
+                                        <div class="role-content">
+                                            <label class="label-role" th:each="role : ${allRoles}" th:title="${role.description}">
+                                                <input th:field="*{roles}" type="checkbox" th:value="${role.id}" style="position: inherit;opacity: 0.5;"/>
+                                                <span class="lbl" th:text="${role.name}"></span>&nbsp;&nbsp;
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group pull-left">
+                                        <button type="submit" id="btnSubmit" class="btn btn-submit ripple ripple-js">Thêm mới</button>
+                                        <a th:href="@{/account/user_list.html?page={pageIdx}(pageIdx=${session.pageIndex})}" href="/account/user_list" class="btn btn-cancel">Hủy bỏ</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<content th:replace="fragments/init :: script"></content>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY HH:mm'
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.addForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Địa chỉ email không được bỏ trống'
+                        },
+                        emailAddress: {
+                            message: 'Địa chỉ email không đúng định dạng'
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 50,
+                            message: 'Địa chỉ email lớn hơn 50 kí tự'
+                        }
+                    }
+                },
+                userName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên đăng nhập không được bỏ trống'
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 20,
+                            message: 'Tên đăng nhập có độ dài nhỏ hơn 20 kí tự'
+                        }
+                    }
+                },
+                fullName:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên người dùng không được bỏ trống'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+
+<script>
+    $("#errorMessage").hide().fadeIn(0).delay(3000).fadeOut(500);
+</script>
+</body>
+
+</html>

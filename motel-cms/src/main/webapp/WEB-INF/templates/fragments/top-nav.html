@@ -1,0 +1,72 @@
+<content th:fragment="content" th:remove="tag">
+    <div class="top_nav">
+        <div class="nav_menu">
+            <nav>
+                <div class="nav toggle">
+                    <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                </div>
+                <div class="nav toggle" style="width: auto;padding-top: 10px">
+                    <b id="titlePage" style="font-size: x-large; color: white"></b>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li  th:if="${deviceType} != 'Mobile' and ${deviceType} != 'Tablet'">
+                        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+                           aria-expanded="false">
+                            <img th:src="@{/resources/image/user-icon.png}" alt=""/><span
+                                th:text="${session.username}"></span>
+                            <span class=" fa fa-angle-down"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-usermenu pull-right">
+                            <li sec:authorize="hasAnyAuthority('ROLE_PARTNER_ADMIN','ROLE_PARTNER_USER')">
+                                <a th:href="@{/account/show_profile.html}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="0px" y="0px"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M84.77,43.81H64.14a1.86,1.86,0,1,1,0-3.72H84.77a1.86,1.86,0,1,1,0,3.72Z"></path><path d="M84.77,51.48H64.14a1.86,1.86,0,1,1,0-3.71H84.77a1.86,1.86,0,1,1,0,3.71Z"></path><path d="M76.94,59.15H64.14a1.86,1.86,0,1,1,0-3.71h12.8a1.86,1.86,0,1,1,0,3.71Z"></path><path d="M51.52,27.45c0,9.44-7.65,20.82-17.08,20.82S17.35,36.89,17.35,27.45a17.09,17.09,0,0,1,34.17,0Z"></path><path d="M66.87,76.9c0,13.93-8.77,12.71-32.43,12.71C9.68,89.61,2,90.83,2,76.9S20.51,51.68,34.44,51.68,66.87,63,66.87,76.9Z"></path><path d="M89.81,26.57H40a8.12,8.12,0,0,0-8.19,8v4.28h3.79V34.61A4.37,4.37,0,0,1,40,30.28h49.8a4.37,4.37,0,0,1,4.4,4.33v30A4.36,4.36,0,0,1,89.81,69H40a4.36,4.36,0,0,1-4.4-4.32V55.36H31.82v9.28a8.12,8.12,0,0,0,8.19,8h49.8a8.12,8.12,0,0,0,8.19-8v-30A8.12,8.12,0,0,0,89.81,26.57Z"></path></g></g>
+                                    </svg>
+                                Hồ sơ cá nhân
+                            </a></li>
+                            <li><a th:href="@{/account/change_password.html}">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M96.2322159,19.4196148l0.10112-15.6889267L81.1532745,3.7460341L41.1988449,43.7003822  c-3.0746155-1.2009811-6.4170036-1.8673744-9.9169979-1.8673744c-15.0645866,0-27.2767868,12.2122383-27.2767868,27.2767868  c0,15.0645828,12.2121992,27.276825,27.2767868,27.276825s27.2767887-12.2122421,27.2767887-27.276825  c0-3.5632477-0.5320549-6.556366-1.7746773-9.6766052l7.1106491-6.9181175h10.7869186L74.600647,41.2018661l4.9544754-4.9210892  l5.9951096-0.0641212V25.2731667l10.7831039-0.0012856L96.2322159,19.4196148z M28.4686127,79.7498398  c-4.5036316,0-8.1545181-3.6508789-8.1545181-8.1544724c0-4.5036316,3.6508865-8.1545181,8.1545181-8.1545181  s8.1545181,3.6508865,8.1545181,8.1545181C36.6231308,76.0989609,32.9722443,79.7498398,28.4686127,79.7498398z"></path>
+				                </svg>
+                                Đổi mật khẩu
+                            </a></li>
+                            <li><a th:href="@{/logout.html}">
+                                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"></foreignObject><g i:extraneous="self"><g><path d="M63.8,29.3v11.3H34.1c-1.5,0-2.7,1.2-2.7,2.7v13.5c0,1.5,1.2,2.7,2.7,2.7h29.7v11.3c0,2.7,3.1,4.2,5.2,2.6l27.2-20.7     c1.7-1.3,1.7-3.9,0-5.2L69,26.7C66.9,25,63.8,26.6,63.8,29.3z"></path><path d="M2.5,6.5v87.1c0,1.5,1.2,2.7,2.7,2.7h31.7c1.5,0,2.7-1.2,2.7-2.7V82.6c0-1.5-1.2-2.7-2.7-2.7H18.8V20.1h18.1     c1.5,0,2.7-1.2,2.7-2.7V6.5c0-1.5-1.2-2.7-2.7-2.7H5.2C3.7,3.8,2.5,5,2.5,6.5z"></path></g></g></switch>
+                                </svg>
+                                Đăng xuất
+                            </a></li>
+                        </ul>
+                    </li>
+                    <div id="topNavAction"></div>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</content>
+<content th:fragment="li_user" th:remove="tag">
+    <li  th:if="${deviceType} != 'Mobile' and ${deviceType} != 'Tablet'">
+        <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown"
+           aria-expanded="false">
+            <img th:src="@{/resources/image/user-icon.png}" alt=""/><span
+                th:text="${session.username}"></span>
+            <span class=" fa fa-angle-down"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-usermenu pull-right">
+            <li sec:authorize="hasAnyAuthority('ROLE_PARTNER_ADMIN','ROLE_PARTNER_USER')">
+                <a th:href="@{/account/show_profile.html}">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="0px" y="0px"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M84.77,43.81H64.14a1.86,1.86,0,1,1,0-3.72H84.77a1.86,1.86,0,1,1,0,3.72Z"></path><path d="M84.77,51.48H64.14a1.86,1.86,0,1,1,0-3.71H84.77a1.86,1.86,0,1,1,0,3.71Z"></path><path d="M76.94,59.15H64.14a1.86,1.86,0,1,1,0-3.71h12.8a1.86,1.86,0,1,1,0,3.71Z"></path><path d="M51.52,27.45c0,9.44-7.65,20.82-17.08,20.82S17.35,36.89,17.35,27.45a17.09,17.09,0,0,1,34.17,0Z"></path><path d="M66.87,76.9c0,13.93-8.77,12.71-32.43,12.71C9.68,89.61,2,90.83,2,76.9S20.51,51.68,34.44,51.68,66.87,63,66.87,76.9Z"></path><path d="M89.81,26.57H40a8.12,8.12,0,0,0-8.19,8v4.28h3.79V34.61A4.37,4.37,0,0,1,40,30.28h49.8a4.37,4.37,0,0,1,4.4,4.33v30A4.36,4.36,0,0,1,89.81,69H40a4.36,4.36,0,0,1-4.4-4.32V55.36H31.82v9.28a8.12,8.12,0,0,0,8.19,8h49.8a8.12,8.12,0,0,0,8.19-8v-30A8.12,8.12,0,0,0,89.81,26.57Z"></path></g></g>
+                    </svg>
+                    Hồ sơ cá nhân
+                </a></li>
+            <li><a th:href="@{/account/change_password.html}">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100" xml:space="preserve"><path d="M96.2322159,19.4196148l0.10112-15.6889267L81.1532745,3.7460341L41.1988449,43.7003822  c-3.0746155-1.2009811-6.4170036-1.8673744-9.9169979-1.8673744c-15.0645866,0-27.2767868,12.2122383-27.2767868,27.2767868  c0,15.0645828,12.2121992,27.276825,27.2767868,27.276825s27.2767887-12.2122421,27.2767887-27.276825  c0-3.5632477-0.5320549-6.556366-1.7746773-9.6766052l7.1106491-6.9181175h10.7869186L74.600647,41.2018661l4.9544754-4.9210892  l5.9951096-0.0641212V25.2731667l10.7831039-0.0012856L96.2322159,19.4196148z M28.4686127,79.7498398  c-4.5036316,0-8.1545181-3.6508789-8.1545181-8.1544724c0-4.5036316,3.6508865-8.1545181,8.1545181-8.1545181  s8.1545181,3.6508865,8.1545181,8.1545181C36.6231308,76.0989609,32.9722443,79.7498398,28.4686127,79.7498398z"></path>
+                </svg>
+                Đổi mật khẩu
+            </a></li>
+            <li><a th:href="@{/logout.html}">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 100 100"><switch><foreignObject requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/" x="0" y="0" width="1" height="1"></foreignObject><g i:extraneous="self"><g><path d="M63.8,29.3v11.3H34.1c-1.5,0-2.7,1.2-2.7,2.7v13.5c0,1.5,1.2,2.7,2.7,2.7h29.7v11.3c0,2.7,3.1,4.2,5.2,2.6l27.2-20.7     c1.7-1.3,1.7-3.9,0-5.2L69,26.7C66.9,25,63.8,26.6,63.8,29.3z"></path><path d="M2.5,6.5v87.1c0,1.5,1.2,2.7,2.7,2.7h31.7c1.5,0,2.7-1.2,2.7-2.7V82.6c0-1.5-1.2-2.7-2.7-2.7H18.8V20.1h18.1     c1.5,0,2.7-1.2,2.7-2.7V6.5c0-1.5-1.2-2.7-2.7-2.7H5.2C3.7,3.8,2.5,5,2.5,6.5z"></path></g></g></switch>
+                </svg>
+                Đăng xuất
+            </a></li>
+        </ul>
+    </li>
+</content>

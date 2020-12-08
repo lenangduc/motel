@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>500</title>
+	<content th:replace="fragments/init :: head"></content>
+</head>
+
+<body class="nav-md">
+<div class="container body">
+	<div class="main_container">
+		<!-- page content -->
+		<div class="col-md-12">
+			<div class="col-middle">
+				<div class="text-center text-center">
+					<h1 class="error-number">500</h1>
+					<h2 style="color: white">Sorry, 500 Internal Server Error !</h2>
+					<p style="color: white">Website is under maintenance right now. will back soon, <a th:href="@{/}" class="alert-link"> Trở về trang chủ</a>
+					</p>
+				</div>
+			</div>
+		</div>
+		<!-- /page content -->
+	</div>
+</div>
+<content th:replace="fragments/init :: script"></content>
+</body>
+</html>

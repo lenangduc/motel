@@ -1,0 +1,380 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>vn.yotel</groupId>
+    <artifactId>motel</artifactId>
+    <version>1.0</version>
+  </parent>
+  <artifactId>motel-core</artifactId>
+  <packaging>jar</packaging>
+  <name>motel-core</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <jetty.version>9.2.10.v20150310</jetty.version>
+  </properties>
+
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>1.18.4</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>com.codeborne</groupId>
+      <artifactId>selenide</artifactId>
+      <version>4.14.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.aeonbits.owner</groupId>
+      <artifactId>owner</artifactId>
+      <version>1.0.10</version>
+    </dependency>
+
+    <!-- spring data -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-cql</artifactId>
+      <version>1.5.9.RELEASE</version>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.data</groupId>
+          <artifactId>spring-data-commons</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <!-- Hibernate / JPA -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>${hibernate-entitymanager-version}</version>
+
+      <exclusions>
+        <exclusion>
+          <artifactId>xml-apis</artifactId>
+          <groupId>xml-apis</groupId>
+        </exclusion>
+        <!-- <exclusion>
+            <artifactId>jboss-logging</artifactId>
+            <groupId>org.jboss.logging</groupId>
+        </exclusion>
+        <exclusion>
+            <artifactId>jboss-logging-annotations</artifactId>
+            <groupId>org.jboss.logging</groupId>
+        </exclusion>
+        <exclusion>
+            <artifactId>
+                jboss-transaction-api_1.2_spec
+            </artifactId>
+            <groupId>org.jboss.spec.javax.transaction</groupId>
+        </exclusion>
+         -->
+      </exclusions>
+    </dependency>
+
+    <!--
+    <dependency>
+        <groupId>org.hibernate.javax.persistence</groupId>
+        <artifactId>hibernate-jpa-2.1-api</artifactId>
+        <version>${hibernate-jpa-version}</version>
+    </dependency>
+     -->
+
+    <!-- JSR 303 with Hibernate Validator -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${hibernate-validator-version}</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>validation-api</artifactId>
+          <groupId>javax.validation</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>jboss-logging</artifactId>
+          <groupId>org.jboss.logging</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>${validation-api-version}</version>
+    </dependency>
+    <!-- <dependency>
+        <groupId>javax.transaction</groupId>
+        <artifactId>jta</artifactId>
+        <version>${jta-version}</version>
+    </dependency>
+ -->
+    <!--  jackson  -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+      <version>${jackson-annotations-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+      <version>${jackson-annotations-version}</version>
+    </dependency>
+    <!--
+    <dependency>
+        <groupId>org.glassfish.jersey.core</groupId>
+        <artifactId>jersey-server</artifactId>
+        <version>${jersey-version}</version>
+    </dependency> -->
+    <!-- spring modules -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-core</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-orm</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-jdbc</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-tx</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-aop</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-expression</artifactId>
+      <version>${spring-version}</version>
+    </dependency>
+
+    <!-- for Spring Security -->
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-core</artifactId>
+      <version>${spring-security-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-web</artifactId>
+      <version>${spring-security-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-config</artifactId>
+      <version>${spring-security-version}</version>
+    </dependency>
+
+    <!-- Spring Integration  -->
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-core</artifactId>
+      <version>${spring.integration.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-messaging</artifactId>
+      <version>${spring-messaging-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-event</artifactId>
+      <version>${spring.integration.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-http</artifactId>
+      <version>${spring.integration.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-mail</artifactId>
+      <version>${spring.integration.version}</version>
+    </dependency>
+
+    <!--
+    <dependency>
+        <groupId>org.springframework.integration</groupId>
+        <artifactId>spring-integration-redis</artifactId>
+        <version>${spring.integration.version}</version>
+    </dependency>
+    -->
+    <dependency>
+      <groupId>org.springframework.integration</groupId>
+      <artifactId>spring-integration-syslog</artifactId>
+      <version>${spring.integration.version}</version>
+    </dependency>
+    <!--  xml processing  -->
+    <dependency>
+      <groupId>xml-apis</groupId>
+      <artifactId>xml-apis</artifactId>
+      <version>${xml-apis-version}</version>
+    </dependency>
+
+    <!--  commons -->
+    <dependency>
+      <groupId>commons-fileupload</groupId>
+      <artifactId>commons-fileupload</artifactId>
+      <version>${commons-fileupload-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>commons-io</groupId>
+      <artifactId>commons-io</artifactId>
+      <version>${commons-io-version}</version>
+    </dependency>
+	<!-- https://mvnrepository.com/artifact/com.google.guava/guava -->
+
+    <!-- for OAuth 2.0 -->
+    <dependency>
+      <groupId>org.springframework.security.oauth</groupId>
+      <artifactId>spring-security-oauth2</artifactId>
+      <version>${spring-security-oauth2-version}</version>
+    </dependency>
+    <dependency>
+      <groupId>vn.yotel</groupId>
+      <artifactId>yoframework</artifactId>
+      <version>0.0.2-RC1</version>
+      <exclusions>
+        <exclusion>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>commons-logging</groupId>
+          <artifactId>commons-logging</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-log4j12</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>net.sf.ehcache</groupId>
+          <artifactId>ehcache</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    
+    <dependency>
+			<groupId>com.fazecast</groupId>
+			<artifactId>jSerialComm</artifactId>
+			<version>2.5.1</version>
+	</dependency>
+      <dependency>
+          <groupId>junit</groupId>
+          <artifactId>junit</artifactId>
+          <version>4.12</version>
+          <scope>test</scope>
+      </dependency>
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>23.0</version>
+    </dependency>
+
+	<!-- Jetty -->
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-server</artifactId>
+	    <version>${jetty.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-webapp</artifactId>
+	    <version>${jetty.version}</version>
+	    <scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-servlet</artifactId>
+           <version>${jetty.version}</version>
+           <scope>provided</scope>
+	</dependency>
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-http</artifactId>
+           <version>${jetty.version}</version>
+           <scope>provided</scope>
+	</dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.7</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework.data</groupId>
+        <artifactId>spring-data-jpa</artifactId>
+        <version>1.9.4.RELEASE</version>
+        <scope>compile</scope>
+    </dependency>
+  </dependencies>
+  <build>
+    <plugins>
+      <!-- spring data mongodb QueryDSL -->
+      <!--
+      <plugin>
+          <groupId>com.mysema.maven</groupId>
+          <artifactId>apt-maven-plugin</artifactId>
+          <version>${apt-maven-plugin-version}</version>
+          <executions>
+              <execution>
+                  <phase>generate-sources</phase>
+                  <goals>
+                      <goal>process</goal>
+                  </goals>
+                  <configuration>
+                      <outputDirectory>target/generated-sources</outputDirectory>
+                      <processor>org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor</processor>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
+       -->
+      <!-- Spring data jpa QueryDSL -->
+      <!--
+      <plugin>
+          <groupId>com.mysema.maven</groupId>
+          <artifactId>apt-maven-plugin</artifactId>
+          <version>${apt-maven-plugin-version}</version>
+          <executions>
+              <execution>
+                  <phase>generate-sources</phase>
+                  <goals>
+                      <goal>process</goal>
+                  </goals>
+                  <configuration>
+                      <outputDirectory>target/generated-sources</outputDirectory>
+                      <processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+                  </configuration>
+              </execution>
+          </executions>
+      </plugin>
+       -->
+    </plugins>
+  </build>
+</project>

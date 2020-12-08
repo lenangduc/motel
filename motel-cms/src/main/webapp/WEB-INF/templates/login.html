@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Đăng nhập</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--    <link rel="icon" type="image/png" th:href="@{/resources/image/sms-icon.png}"/>-->
+    <style type="text/css">
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .page-content {
+            margin-bottom: 5rem;
+        }
+        .log-form {
+            max-width: 460px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .page-wrapper {
+            width: 100%;
+            height: 100vh;
+            /*background: url("/resources/image/background-gsm.png");*/
+            background-position: center;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .form-logo-wrapper {
+            text-align: center;
+        }
+        .form-logo {
+            height: 60px;
+            margin: 0 auto;
+        }
+
+        .log-form-content {
+            margin-top: 1.5rem;
+            padding: 15px 20px .7rem 20px;
+            background: #fff;
+            box-shadow: 5px 5px 10px 0px #7e7e7e78;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .input-block {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-top: 1em;
+            position: relative;
+        }
+
+        .btn-block {
+            padding: 11px 15px;
+            background: var(--main-thin-color);
+            color: white;
+            text-align: center;
+            font-size: .95em;
+            font-weight: 600;
+            letter-spacing: .05em;
+            cursor: pointer;
+            transition: all .3s;
+            margin: 0 !important;
+            box-shadow: 1px 1px 2px 0 rgba(60, 64, 67, 0.39);
+        }
+        .btn-block:hover {
+            background: var(--main-color);
+        }
+
+        .form-footer {
+            padding: .9rem 0;
+        }
+        .form-end {
+            font-size: .9em;
+            text-align: center;
+            border-top: 1px solid #dfdfdf;
+            padding-top: .5rem;
+            margin-top: 2rem;
+            letter-spacing: .05em;
+        }
+        .form-body .input-block:not(:first-child) {
+            margin-top: 2.5em;
+        }
+        .form-body .input-block:last-child {
+            margin-bottom: 1rem;
+        }
+        .form-message {
+            /*height: 2rem;*/
+        }
+        .label-input {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            font-weight: 400 !important;
+            font-size: 1.1em;
+            transition: all .2s;
+            color: #999999;
+            letter-spacing: .05em;
+            margin-left: 15px;
+        }
+        .form-input {
+            padding: 12px 15px;
+            border: none;
+            border-bottom: 1px solid #e2e2e2;
+            font-size: 1.1em;
+            color: var(--text-main-color);
+            transition-timing-function: cubic-bezier(0.1, 0.7, 1.0, 0.1);
+            transform-origin: center;
+            border: 1px solid #d4d4d4;
+            border-radius: 7px;
+            background: transparent;
+            transition: all .4s;
+            letter-spacing: .05em;
+        }
+        .form-input:focus + .label-input, .label-input--focus {
+            top: 0;
+            transform: translateY(-80%);
+            font-size: .95em;
+            color: #5C5C5C;
+            background: white;
+            border-radius: 5px;
+            padding: 0 12px 0 7px;
+            margin-left: 0;
+        }
+        .footer-info {
+            font-size: .8em;
+            text-align: center;
+            margin-top: .5rem;
+        }
+        .form-input:focus {
+            border-color: var(--main-color);
+        }
+        .sub-title-div {
+            color: #999999;
+        }
+        .sub-title-value {
+            font-size: .9em;
+            font-weight: 600;
+        }
+
+        /*---valid---*/
+        .alert-error-tv {
+            color:#ff3636;
+            display: block;
+            text-align: center;
+        }
+        .text-error {
+            height: 2rem;
+        }
+        .valid-error {
+            font-size: .85em;
+            color:#ff3636;
+            font-weight: 600;
+            letter-spacing: .05em;
+            position: absolute;
+            bottom: 0;
+            transform: translateY(calc(100% + 3px));
+        }
+
+        /*---animation---*/
+        @keyframes fade-in-top {
+            0% {
+                opacity: 0;
+                transform: translateY(-80%);
+            }
+            50% {
+                opacity: 0.5;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        @keyframes fade-in-bottom {
+            0% {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            50% {
+                opacity: 0.65;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        .fade-in-top-animation {
+            -webkit-animation: fade-in-top .5s;
+            animation: fade-in-top .5s;
+        }
+        .fade-in-bottom-animation {
+            -webkit-animation: fade-in-bottom .8s;
+            animation: fade-in-bottom .8s;
+        }
+    </style>
+    <link rel="stylesheet" th:href="@{/resources/gentelella-master/build/css/custom.css}"/>
+</head>
+<body>
+<div class="page-wrapper" id="page-wrapper">
+    <div class="page-content">
+        <div class="log-form">
+<!--            <div class="form-logo-wrapper fade-in-top-animation"><img th:src="@{/resources/image/app-logo.png}" class="form-logo"></div>-->
+            <div class="form-logo-wrapper fade-in-top-animation"><h1 style="color: green;font-size: xx-large">Nhà Trọ</h1></div>
+            <div class="log-form-content fade-in-bottom-animation">
+                <div class="form-title">Đăng nhập</div>
+                <div class="form-message alert-error-tv" id="alert-error-tv">
+                </div>
+                <form th:action="@{/login.html}" method="POST" id="form-login">
+                    <div class="form-body">
+                        <div class="input-block">
+                            <input type="text" id="txt-username" name="j_username" maxlength="20px" class="form-input"/>
+                            <label for="txt-username" class="label-input">Username</label>
+                        </div>
+                        <div class="input-block">
+                            <input type="password" id="txt-password" name="j_password" maxlength="20px" class="form-input"/>
+                            <label for="txt-password" class="label-input">Password</label>
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <div class="btn btn-block ripple ripple-js" id="btn-submit">
+                            ĐĂNG NHẬP
+                        </div>
+                    </div>
+                </form>
+                <div class="form-end">
+                    <svg style="height: .8em; fill: var(--main-color);" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" x="0px" y="0px"><defs></defs><g><path class="fil0" d="M26.4604 7.09494c3.58467,-2.06931 7.82959,-2.55711 12.3804,-1.67954 1.25552,6.7595 3.17719,14.3115 5.76619,22.6549l-11.9328 5.61737c-1.65356,13.2698 10.8757,34.9692 23.1935,40.172l10.8308 -7.52604c5.93154,6.41462 11.5111,11.8548 16.7364,16.3218 -1.51537,4.37956 -4.05948,7.81305 -7.64415,9.88236 -31.0987,17.9553 -80.429,-67.4887 -49.3303,-85.4428z"/></g></svg>
+                    <span style="margin-right: .3em;">Hotline</span><a class="sub-title-value" target="_blank">
+                        0337 816 938</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/resources/gentelella-master/jquery/dist/jquery.min.js}"></script>
+<script type="text/javascript">
+    const MOBILE_MAX_WIDTH = 520;
+
+    setTimeout(function () {
+        setupLabelTitle($('#txt-username'),false,true);
+        setupLabelTitle($('#txt-password'), true,true);
+    }, 200);
+
+    checkErrorMessage();
+    setupPageSize();
+    setupLabelTitleBlur($('#txt-username'));
+    setupLabelTitleBlur($('#txt-password'), true);
+    setupSubmit();
+    setOnKeyPressEnter('txt-username', executeSubmit);
+    setOnKeyPressEnter('txt-password', executeSubmit);
+    setupFirstFocus();
+
+    init_ripple_animation();
+
+    function setupPageSize() {
+        $(window).on('load', function() {
+            if(window.outerWidth <= MOBILE_MAX_WIDTH) {
+                let window_height = window.innerHeight;
+                let $page_wrapper =  $('#page-wrapper');
+                let page_wrapper_height = $page_wrapper.get(0).innerHeight;
+                let content_height = window_height < page_wrapper_height ? page_wrapper_height : window_height;
+                $page_wrapper.css('height', content_height);
+            }
+        });
+    }
+
+    function setupFirstFocus(){
+        $('input[type = "text"]')[0].focus();
+    }
+
+    function setOnKeyPress(input, callback) {
+        input.onkeypress = function(e) {
+            callback.apply(input, [e]);
+        }
+    };
+
+    function setOnKeyPressEnter(inputId, callback) {
+        setOnKeyPress(document.getElementById(inputId), function(e) {
+            if (event.which == 13 || event.keyCode == 13) {
+                callback();
+            }
+        });
+    };
+
+    function checkErrorMessage() {
+        const urlParams = new URLSearchParams(window.location.search);
+        if(urlParams.get('authentication_error')) {
+            $('#alert-error-tv').append('<div class="text-error">Sai tài khoản hoặc mật khẩu</div>');
+        }
+    }
+
+    function setupLabelTitle($input, isNotTrim, firstCheck) {
+        let $label_title = $input.next();
+        if (firstCheck || (!isNotTrim && $input.val().trim() !== '') || (isNotTrim && $input.val() !== '')) {
+            $label_title.addClass('label-input--focus');
+        }
+        else {
+            $label_title.removeClass('label-input--focus');
+        }
+    }
+
+    function setupLabelTitleBlur($input, isNotTrim) {
+        $input.blur(function () {
+            setupLabelTitle($input, isNotTrim);
+        });
+        $input.on('change', function () {
+            setupLabelTitle($input, isNotTrim);
+        });
+    }
+
+    function init_ripple_animation() {
+        $('body').on('click', '.ripple-js', function (e) {
+            var rippleDiv = $('<span>'),
+                rippleOffset = $(this).offset(),
+                rippleY = e.pageY - rippleOffset.top,
+                rippleX = e.pageX - rippleOffset.left,
+                ripple = $('span');
+
+            rippleDiv.css({
+                top: rippleY - (ripple.height() / 2),
+                left: rippleX - (ripple.width() / 2),
+                background: $(this).data("ripple-color")
+            }).appendTo($(this));
+
+            window.setTimeout(function () {
+                rippleDiv.remove();
+            }, 1500);
+        });
+    }
+    
+    function executeSubmit() {
+        if(validateForm()) {
+            $('#form-login').submit();
+        };
+    }
+    
+    function setupSubmit() {
+        $('#btn-submit').on('click', function () {
+           executeSubmit();
+        });
+    }
+
+    function validateForm() {
+        $('#alert-error-tv').text('');
+        $('#txt-username').blur();
+        $('#txt-password').blur();
+        const VALID_TYPE = {
+            'SUCH_AS' : 0,
+            'GRANT_THAN' : 1,
+            'GRANT_THAN_OR_SUCH_AS' : 2,
+            'LESS_THAN' : 3,
+            'LESS_THAN_OR_SUCH_AS' : 4,
+            'DIFFERENT' : 5,
+
+        }
+        const compare = function(value, attr_value, is_trim, valid_value, type_compare) {
+            let value_compare = value;
+            if(is_trim) {
+                value = value.trim();
+            }
+            if(attr_value && attr_value !== '') {
+                value_compare = value[attr_value];
+            }
+            if(type_compare === VALID_TYPE.SUCH_AS) {
+                return value_compare === valid_value;
+            }
+            if(type_compare === VALID_TYPE.GRANT_THAN) {
+                return value_compare > valid_value;
+            }
+            if(type_compare === VALID_TYPE.GRANT_THAN_OR_SUCH_AS) {
+                return value_compare >= valid_value;
+            }
+            if(type_compare === VALID_TYPE.LESS_THAN) {
+                return value_compare < valid_value;
+            }
+            if(type_compare === VALID_TYPE.LESS_THAN_OR_SUCH_AS) {
+                return value_compare <= valid_value;
+            }
+            if(type_compare === VALID_TYPE.DIFFERENT) {
+                return value_compare !== valid_value;
+            }
+        }
+
+        let isValidAll = true;
+
+        let obj_valids =
+            [{
+                id : 'txt-username',
+                validators : [{
+                    'attrName' : 'length',
+                    'compareType' : VALID_TYPE.GRANT_THAN,
+                    'valueCompare' : 0,
+                    'message' : 'Tài khoản không được để trống',
+                    'isTrim' : true,
+                }]
+            },
+                {
+                    id : 'txt-password',
+                    validators : [{
+                        'attrName' : 'length',
+                        'compareType' : VALID_TYPE.GRANT_THAN,
+                        'valueCompare' : 0,
+                        'message' : 'Mật khẩu không được để trống',
+                        'isTrim' : false,
+                    },
+                    ]
+                }];
+
+        for(let obj_valid of obj_valids) {
+            let $valid_element = $('#' + obj_valid.id);
+            $valid_element_parent =  $valid_element.parent();
+            let valid_element_value = $valid_element.val();
+            let valid_directs = obj_valid.validators;
+            for(let valid of valid_directs) {
+                let isValid = compare(
+                    valid_element_value, valid.attrName, valid.isTrim, valid.valueCompare, valid.compareType);
+                let $valid_error = $valid_element_parent.children().last();
+                if($valid_error && $valid_error.attr('class') === 'valid-error') {
+                    ($valid_error).remove();
+                }
+                if(!isValid) {
+                    isValidAll = false;
+                    $valid_element_parent.append(`<div class="valid-error">${valid.message}</div>`);
+                    break;
+                }
+            }
+        }
+        return isValidAll;
+    }
+</script>
+</body>
+</html>

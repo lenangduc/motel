@@ -1,0 +1,434 @@
+<content th:fragment ="head" th:remove="tag">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<!--    <link rel="icon" type="image/png" th:href="@{/resources/image/sms-icon.png}"/>-->
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/bootstrap/dist/css/bootstrap.min.css}"/>
+    <!-- Font Awesome -->
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/font-awesome/css/font-awesome.min.css}"/>
+    <!-- NProgress -->
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/nprogress/nprogress.min.css}"/>
+    <!-- Custom styling plus plugins -->
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/build/css/custom.min.css?v=0.1}"/>
+
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/vendors/iCheck/skins/flat/green.css}"/>
+
+    <link th:href="@{/resources/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css?v=1}" rel="stylesheet"/>
+    <!--<link rel="stylesheet" th:href="@{/resources/sb-admin-v2/css/bootstrap.min.css"/>-->
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/bootstrap-daterangepicker/daterangepicker-bs3.min.css}"/>
+    <link  rel="stylesheet" th:href="@{/resources/gentelella-master/morris/morris-0.4.3.min.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/gentelella-master/bootstrap-select/bootstrap-select.min.css}"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/css/bootstrapValidator.min.css"/>
+    <link rel="stylesheet" th:href="@{/resources/sb-admin-v2/css/responsive-custom.css}"/>
+    <link rel="stylesheet" th:href="@{/resources/sb-admin-v2/css/plugins/timeline/timeline.css}"/>
+
+    <!-- PNotify -->
+    <link  th:href="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.css}" rel="stylesheet">
+    <link  th:href="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.buttons.css}" rel="stylesheet">
+    <link  th:href="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.nonblock.css}" rel="stylesheet">
+
+    <!-- Switchery -->
+    <link th:href="@{/resources/gentelella-master/vendors/switchery/dist/switchery.min.css}" rel="stylesheet">
+
+    <!-- Switchery -->
+    <script th:src="@{/resources/gentelella-master/vendors/switchery/dist/switchery.min.js}"></script>
+
+    <style>
+        .dropdown-menu.show-calendar {
+            min-height: 306px !important;
+        }
+        .bootstrap-select.btn-group .dropdown-menu.open{
+            border-radius: 16px !important;
+            margin-top: 5px;
+            border-color: #999;
+            box-shadow: none;
+        }
+
+        .bootstrap-select .dropdown-toggle:focus{
+            border-radius: 16px !important;
+        }
+
+        .bootstrap-select .dropdown-toggle:focus{
+            outline: white!important;
+        }
+        .dropdown-menu.dropdown-usermenu {
+            border-radius: 10px !important;
+        }
+
+        .daterangepicker select.ampmselect, .daterangepicker select.hourselect, .daterangepicker select.minuteselect, .daterangepicker select.monthselect, .daterangepicker select.secondselect, .daterangepicker select.yearselect {
+            height: auto;
+            -webkit-appearance: button !important;
+        }
+        .add-on.input-group-addon{
+            height: 32px;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0,0,0,.05)!important;
+        }
+
+        table.jambo_table thead{
+            background: white!important;
+            color: #4b4f53!important;
+        }
+
+        .x_panel{
+            border-radius: 10px 10px 10px 10px;
+        }
+
+        .switch-input:checked + .switch-label {
+            background: var(--success-color);
+        }
+
+        table.jambo_table tbody tr.selected {
+            background: rgba(38,185,154,0.16)!important;
+        }
+
+        .antoo {
+            color:#4b4f53!important;
+            font-weight:500;
+        }
+
+        .btn-action-top-nav {
+            margin-left: 5px;
+            margin-top: 12px;
+            border-radius: 20px;
+            padding: 5px 12px 5px 12px!important;
+            box-shadow: 1px 2px 3px 0px #0f9ac44a;
+            border: 1px solid white;
+            color: white;
+            transition: all .2s;
+        }
+
+        .btn-action-top-nav:hover {
+            /*border: 1px solid #b2ebf2;*/
+            /*color: #b2ebf2;*/
+            background-color: rgba(0, 0, 0, 0.1)!important;
+        }
+
+        .btn-sm-yotel {
+            font-size: 13px!important;
+            padding-top: 2px!important;
+            padding-bottom: 2px!important;
+        }
+
+        td .btn-sm-yotel {
+            margin-bottom: 0;
+            padding: 2px 6px 2px 6px!important;
+        }
+
+        .btn-cancel-yotel {
+            color: var(--text-main-color) !important;
+            background: #dadada;
+            /*border: none;*/
+            border: 1px solid #dadada;
+            /*transition: all .3s;*/
+            min-width: 60px;
+            /*justify-content: center;*/
+        }
+
+        .label-role label {
+            font-size: .8em!important;
+            letter-spacing: .1em;
+            cursor: pointer;
+            background: #dae7ea;
+            padding: 2px 5px;
+            color: #000;
+            line-height: 1;
+            font-weight: 700;
+        }
+
+        .btn-select {
+            padding: 0px!important;
+            min-width: 60px!important;
+        }
+
+        .elementSearchHide {
+            display: none;
+        }
+
+        .onOrientationChange {
+            width: 100% !important;
+            min-height: 250px !important;
+        }
+
+        .nav.side-menu > li.active > a {
+            text-shadow: rgba(0, 0, 0, .25) 0 -1px 0;
+            background: rgba(255, 255, 255, 0.05)!important;
+            box-shadow: rgba(0, 0, 0, .25) 0 0px 0, inset rgba(255, 255, 255, .16) 0 0px 0;!important;
+        }
+
+        .ul-navbar-width-auto {
+            width: auto!important;
+        }
+
+        .placeholder-red::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: red;
+            opacity: 1; /* Firefox */
+        }
+
+        .display-inline {
+            display: inline;
+        }
+
+        .btn-basic-yotel {
+            background-color: #009688;
+            border-color: #009688;
+            color: white;
+        }
+
+        .btn-basic-yotel:hover {
+            background-color: rgba(0, 141, 147, 0.99);
+            border-color: rgba(0, 141, 147, 0.99);
+            color: white;
+        }
+
+        .btn-circle {
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            padding: 6px 0;
+            font-size: 12px;
+            line-height: 1.428571429;
+            border-radius: 15px;
+            color: #117a8b;
+            border-color: #10707f !important;
+        }
+
+        .navbar-right {
+            width: max-content!important;
+        }
+
+        .switchery {
+            height: 15px !important;
+            width: 30px !important;
+            /*background-color: seagreen;*/
+        }
+
+        .switchery > small {
+            height: 15px;
+            width: 15px;
+        }
+
+        .display-inline-flex {
+            display: inline-flex;
+        }
+
+        .autocomplete-items {
+            position: absolute;
+            border: 1px solid #d4d4d4;
+            border-bottom: none;
+            z-index: 99;
+            /*position the autocomplete items to be the same width as the container:*/
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 250px;
+            overflow: auto;
+        }
+        .autocomplete-items div {
+            padding: 10px;
+            cursor: pointer;
+            background-color: #fff;
+            border-bottom: 1px solid #d4d4d4;
+        }
+
+        .autocomplete-active {
+            background-color: DodgerBlue !important;
+            color: #ffffff;
+        }
+    </style>
+</content>
+
+
+<!--init script-->
+<content th:fragment="script" th:remove="tag">
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/jquery/dist/jquery.min.js}"></script>
+    <!-- Bootstrap -->
+    <script th:src="@{/resources/gentelella-master/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/sb-admin-v2/js/bootstrap-switch.js}"></script>
+    <script th:src="@{/resources/bootstrap3-dialog/dist/js/bootstrap-dialog.js}" type="text/javascript"></script>
+    <script type="text/javascript" th:src="@{/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js}"></script>
+    <!-- FastClick -->
+    <script th:src="@{/resources/gentelella-master/fastclick/lib/fastclick.min.js}"></script>
+    <!-- NProgress -->
+    <script th:src="@{/resources/gentelella-master/nprogress/nprogress.min.js}"></script>
+    <!-- FullCalendar -->
+    <!-- Custom Theme Scripts -->
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/build/js/custom.min.js?v=0.1}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/morris/raphael-2.1.0.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/morris/morris.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/dataTables/jquery.dataTables.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/dataTables/dataTables.bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/bootstrap-daterangepicker/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/vendors/iCheck/icheck.min.js}"></script>
+    <!--<script type="text/javascript" th:src="@{/resources/bootstrap-daterangepicker/moment.js}"></script>-->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.bootstrapvalidator/0.5.0/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/bootstrap-daterangepicker/daterangepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/bootstrap-select/bootstrap-select.min.js}"></script>
+    <!--<script th:src="@{/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js?v=1}"></script>-->
+
+    <script type="text/javascript" th:src="@{/resources/bootstrap-datetimepicker/js/moment.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/js/SimpleDateFormat.js}"></script>
+
+    <!-- PNotify -->
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.buttons.js}"></script>
+    <script type="text/javascript" th:src="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.nonblock.js}"></script>
+
+    <script type="text/javascript">
+        $(window).on('load',function () {
+            $('#page-wrapper').css('min-height','900');
+        })
+        var panigator = (function () {
+            var goToPageUrl = function (page) {
+                var curUrl = window.location.href;
+                var returnUrl;
+                if (curUrl.indexOf('?') == -1) {
+                    returnUrl = curUrl += '?page=' + page;
+                } else if (curUrl.indexOf('?page=') != -1) {
+                    returnUrl = curUrl.replace(/\?page=([^&]*)/, '?page=' + page);
+                }
+                else if (curUrl.indexOf('&page=') != -1) {
+                    returnUrl = curUrl.replace(/&page=[^&]*/, '&page=' + page);
+                } else {
+                    returnUrl = curUrl += '&page=' + page;
+                }
+                window.location.href = returnUrl;
+            }
+            return {
+                'goToPageUrl' : goToPageUrl
+            }
+        })()
+    </script>
+
+    <script>
+        function autocomplete(inp, arr, onSelect) {
+            var selected_value;
+            /*the autocomplete function takes two arguments,
+            the text field element and an array of possible autocompleted values:*/
+            var currentFocus;
+            /*execute a function when someone writes in the text field:*/
+            inp.addEventListener("input", function (e) {
+                var a, b, i, val = this.value;
+                /*close any already open lists of autocompleted values*/
+                closeAllLists();
+                // if(onSelect && inp.value === ""){
+                //
+                // }
+                if (!val) {
+                    onSelect("");
+                    return false;
+                }
+                currentFocus = -1;
+                /*create a DIV element that will contain the items (values):*/
+                a = document.createElement("DIV");
+                a.setAttribute("id", this.id + "autocomplete-list");
+                a.setAttribute("class", "autocomplete-items");
+                /*append the DIV element as a child of the autocomplete container:*/
+                this.parentNode.appendChild(a);
+                /*for each item in the array...*/
+                for (let i = 0; i < arr.length; i++) {
+                    /*check if the item starts with the same letters as the text field value:*/
+
+                    if (arr[i].label.toUpperCase().includes(val.toUpperCase()) ) {
+                        /*create a DIV element for each matching element:*/
+                        b = document.createElement("DIV");
+                        /*make the matching letters bold:*/
+                        b.innerHTML = "<strong>" + arr[i].label.substr(0, val.length) + "</strong>";
+                        b.innerHTML += arr[i].label.substr(val.length);
+                        /*insert a input field that will hold the current array item's value:*/
+                        b.innerHTML += "<input type='hidden' value='" + arr[i].label + "'>";
+                        /*execute a function when someone clicks on the item value (DIV element):*/
+                        b.addEventListener("click", function (e) {
+                            /*insert the value for the autocomplete text field:*/
+                            inp.value = arr[i].label;
+                            selected_value =  arr[i].value;
+                            if(onSelect){
+                                onSelect(selected_value);
+                            }
+                            /*close the list of autocompleted values,
+                            (or any other open lists of autocompleted values:*/
+                            closeAllLists();
+                        });
+                        a.appendChild(b);
+                    }
+                }
+            });
+
+            /*execute a function presses a key on the keyboard:*/
+            inp.addEventListener("keydown", function (e) {
+                var x = document.getElementById(this.id + "autocomplete-list");
+                if (x) x = x.getElementsByTagName("div");
+                if (e.keyCode == 40) {
+                    /*If the arrow DOWN key is pressed,
+                    increase the currentFocus variable:*/
+                    currentFocus++;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 38) { //up
+                    /*If the arrow UP key is pressed,
+                    decrease the currentFocus variable:*/
+                    currentFocus--;
+                    /*and and make the current item more visible:*/
+                    addActive(x);
+                } else if (e.keyCode == 13) {
+                    /*If the ENTER key is pressed, prevent the form from being submitted,*/
+                    e.preventDefault();
+                    if (currentFocus > -1) {
+                        /*and simulate a click on the "active" item:*/
+                        if (x) x[currentFocus].click();
+                    }
+                }
+            });
+
+            function addActive(x) {
+                /*a function to classify an item as "active":*/
+                if (!x) return false;
+                /*start by removing the "active" class on all items:*/
+                removeActive(x);
+                if (currentFocus >= x.length) currentFocus = 0;
+                if (currentFocus < 0) currentFocus = (x.length - 1);
+                /*add class "autocomplete-active":*/
+                x[currentFocus].classList.add("autocomplete-active");
+            }
+
+            function removeActive(x) {
+                /*a function to remove the "active" class from all autocomplete items:*/
+                for (var i = 0; i < x.length; i++) {
+                    x[i].classList.remove("autocomplete-active");
+                }
+            }
+
+            function closeAllLists(elmnt) {
+                /*close all autocomplete lists in the document,
+                except the one passed as an argument:*/
+                var x = document.getElementsByClassName("autocomplete-items");
+                for (var i = 0; i < x.length; i++) {
+                    if (elmnt != x[i] && elmnt != inp) {
+                        x[i].parentNode.removeChild(x[i]);
+                    }
+                }
+            }
+
+            document.addEventListener("click", function (e) {
+                closeAllLists(e.target);
+            });
+
+            function getSelectedValue() {
+                return selected_value;
+            }
+
+            return {
+                getSelectedValue : getSelectedValue
+            }
+        }
+    </script>
+
+</content>
+
+

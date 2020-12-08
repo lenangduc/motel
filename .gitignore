@@ -1,0 +1,55 @@
+## Let remove cache file for git ignore apply ##
+#   git rm -r --cache **/rebel.xml
+#   git rm -r --cache */target
+#   git rm -r --cache */.classpath
+#   git rm -r --cache */.project
+#   git rm -r --cache .idea
+#   Remove all cache:  git rm -r --cache .
+#   ...
+
+*/target
+**/build/**
+*/.classpath
+*/.project
+**/rebel.xml
+**/tz/**
+**/C:
+
+HELP.md
+.gradle
+.build
+!gradle/wrapper/gradle-wrapper.jar
+!*/src/main/*
+!*/src/test/*
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+*/.idea
+.idea
+*.iws
+*.iml
+*.xml.bak
+*.ipr
+out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+jobsearch247-cms/.settings/
+motel-core/.settings/
+motel-core/target/
+jobsearch247-cms/target/

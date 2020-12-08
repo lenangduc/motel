@@ -1,0 +1,13 @@
+{
+    "threads": [
+	    {
+	      "id": "ProcessScanInfo-001",
+	      "order": 2,
+	      "name": "Process scan info",
+	      "className": "vn.yotel.jobsearch247.cms.thread.ProcessScanInfo",
+	      "autoStart": true,
+	      "delayTime": 1,
+	      "params": {}
+	    }
+    ]
+}
