@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Chi tiết bài đăng</title>
+    <content th:replace="fragments/init :: head"></content>
+    <style>
+        #errorMessage {
+            padding: 8px;
+            background-color: #ff816b;
+        }
+        .role-content {
+            border-radius: 7px;
+            padding: 11px 12px;
+            border: 1px solid #d4d4d4;
+        }
+        .role-content .label-role:last-child {
+            margin-bottom: 0;
+        }
+        .label-role span {
+            font-size: .8em!important;
+            letter-spacing: .1em;
+            cursor: pointer;
+            background: var(--main-color);
+            padding: 2px 5px;
+            color: #fff;
+            line-height: 1;
+            font-weight: 700;
+        }
+        .label-role input {
+            margin-top: 0;
+        }
+        .label-role {
+            display: flex;
+            align-items: center;
+        }
+        .label-role input {
+            margin-right: 7px;
+        }
+        @media(max-width: 767px) {
+            .label-role {
+                margin-bottom: 7px;
+            }
+            .label-role input {
+                height: unset!important;
+            }
+            .label-role span {
+                font-size: .85em!important;
+            }
+        }
+    </style>
+</head>
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <div class="top_nav">
+            <div class="nav_menu" style="background-color: seagreen">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="nav toggle" style="width: auto;padding-top: 10px">
+                        <b id="titlePage" style="font-size: x-large; color: white">Bài đăng chi tiết</b>
+                    </div>
+                    <div class="nav navbar-nav navbar-right">
+                        <content th:replace="fragments/top-nav :: li_user"></content>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row breadcrumb-wrapper">
+                <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
+                    <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/owner/list-post}" data-toggle="tooltip" title="Trở Về Danh Sách">Danh sách bài đăng</a>
+                        </li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
+                    </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form class="updateForm" th:object="${post}"
+                                  th:action="@{/account/update/{id}/user_update.html(id=${post.id})}" method="POST">
+                                <div class="alert alert-danger" id="errorMessage"
+                                     style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
+                                     th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
+                                <input type="hidden" name="user_id" id="user_id" th:value="*{id}"/>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Địa chỉ&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="address-room" th:field="*{addressRoom}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Địa chỉ&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="address-related" name="addressRelated" th:field="*{addressRelated}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Kiểu phòng&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="room-type" th:field="*{roomType}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Số lượng phòng&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="amount-row" th:field="*{amountRow}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Diện tích&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="area" th:field="*{area}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Thời gian hiển thị&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="duration" th:field="*{duration}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Chung chủ&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="with-owner" th:field="*{withOwner}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-xs-12">
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Phòng tắm&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="bathroom" th:field="*{bathroom}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Bếp&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="kitchen" th:field="*{kitchen}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Bình nóng lạnh&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="heater" th:field="*{heater}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Ban công&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="balcony" th:field="*{balcony}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Giá nước( /Khối)&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="water-price" th:field="*{waterPrice}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Giá điện( /Số)&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="electricity-price" th:field="*{electricityPrice}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Tiện ích khác&nbsp;<span style="color: red">&#42;</span></label>
+                                        <div>
+                                            <input class="form-control" type="text" id="other-utility" th:field="*{otherUtility}"/>
+                                        </div>
+                                    </div>
+                                </div>
+<!--                                <div class="col-xs-12">-->
+<!--                                    <div class="form-group pull-left">-->
+<!--                                        <button type="submit" id="btnSubmit" class="btn btn-submit ripple ripple-js">Cập nhật</button>-->
+<!--                                        <a th:href="@{/account/user_list.html?page={pageIdx}(pageIdx=${session.pageIndex})}" href="/account/user_list" class="btn btn-cancel">Hủy bỏ</a>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div>
+    <!-- /#page-wrapper -->
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<!-- /#wrapper -->
+
+<content th:replace="fragments/init :: script"></content>
+
+<script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker({
+            defaultDate: new Date(),
+            format: 'DD/MM/YYYY HH:mm'
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('.updateForm').bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                email: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Địa chỉ email không được bỏ trống'
+                        },
+                        emailAddress: {
+                            message: 'Địa chỉ email không đúng định dạng'
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 50,
+                            message: 'Địa chỉ email lớn hơn 50 kí tự'
+                        }
+                    }
+                },
+                userName: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên đăng nhập không được bỏ trống'
+                        },
+                        stringLength: {
+                            min: 0,
+                            max: 20,
+                            message: 'Tên đăng nhập có độ dài nhỏ hơn 20 kí tự'
+                        }
+                    }
+                },
+                fullName:{
+                    validators: {
+                        notEmpty: {
+                            message: 'Tên người dùng không được bỏ trống'
+                        }
+                    }
+                }
+            }
+        })
+    })
+
+</script>
+
+<script type="text/javascript">
+    $("#errorMessage").hide().fadeIn(0).delay(3000).fadeOut(700);
+</script>
+
+</body>
+
+</html>

@@ -48,7 +48,7 @@ public class AppAuthenticationSuccessHandler implements AuthenticationSuccessHan
         if (isAdmin) {
             targetLink = "/owner/list-post";
         } else if (isOwner) {
-            targetLink = "/fb-group-post/list";
+            targetLink = "/owner/list-post";
         } else if (isRenter) {
             targetLink = "/ctv/";
         }

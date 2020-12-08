@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Danh sách bài đăng</title>
+    <content th:replace="fragments/init :: head"></content>
+</head>
+<style>
+    #email_errors {
+        padding: 11px;
+        margin-bottom: 0px;
+        margin-top: 15px;
+    }
+
+</style>
+<body class="nav-md">
+<input type="hidden" id="application-context" th:value="@{/}"/>
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <div class="top_nav">
+            <div class="nav_menu" style="background-color: seagreen">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="nav toggle" style="width: auto;padding-top: 10px">
+                        <b id="titlePage" style="font-size: x-large; color: white">Danh sách bài đăng</b>
+                    </div>
+                    <div class="nav navbar-nav navbar-right">
+                        <content th:replace="fragments/top-nav :: li_user"></content>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+<!--                            <form role="form" th:action="@{/ctv/}"-->
+<!--                                  method="GET">-->
+<!--                                <div class="row">-->
+<!--                                    <div class="col-lg-3 col-sm-4 col-xs-12">-->
+<!--                                        <label>Từ ngày - Đến ngày</label>-->
+<!--                                        <div class="input-prepend input-group">-->
+<!--                                            <span class="add-on input-group-addon"><i-->
+<!--                                                    class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>-->
+<!--                                            <input type="text" name="from_date" id="from_date" hidden="true"-->
+<!--                                                   th:value="${from_date}"/>-->
+<!--                                            <input type="text" name="to_date" id="to_date" hidden="true" th:value="${to_date}"/>-->
+<!--                                            <input type="text" style="width: 100%" name="date_range" id="reservationtime"-->
+<!--                                                   class="form-control span4" th:value="${from_date} + ' - ' + ${to_date}"-->
+<!--                                                   readonly="readonly"/>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-lg-3 col-xs-4 col-sm-12">-->
+<!--                                        <label>&nbsp;</label>-->
+<!--                                        <div>-->
+<!--                                            <button type="submit" id="btnSearch" class="btn btn-round btn-basic-yotel"><i-->
+<!--                                                    class="fa fa-search"></i>-->
+<!--                                                Tìm kiếm-->
+<!--                                            </button>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </form>-->
+                            <div class="panel-table-wrapper custom-scroll" style="overflow-x:auto;">
+                                <table class="table table-responsive table-striped table-bordered table-hover">
+                                    <thead>
+                                    <th>Stt</th>
+                                    <th>Ngày yêu cầu</th>
+                                    <th>Ngày đăng</th>
+                                    <th>Thời lượng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Chi tiết</th>
+                                    </thead>
+                                    <tbody th:if="${posts} != null">
+                                    <tr th:each="post, iterStat : ${posts}">
+                                        <td th:text="${iterStat.count}"></td>
+                                        <td style="min-width: 150px;" th:text="${post.dateRequest}"></td>
+                                        <td th:text="${post.datePost}" ></td>
+                                        <td th:text="${post.duration}" ></td>
+                                        <td>
+                                            <span th:if="${post.isRental} == 1">Đã cho thuê</span>
+                                            <span th:if="${post.isRental} == 0" style="color: orangered"> Chưa cho thuê </span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a th:href="@{'/owner/show/' + ${post.id}}">
+                                                <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel"
+                                                        title="Cụ thể"><i
+                                                        class="fa fa-eye"> </i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+<!--                                                        <content th:replace="fragments/panigator :: content(page = ${post})"></content>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+    </div>
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<!-- /#wrapper -->
+
+<content th:replace="fragments/init :: script"></content>
+<script type="text/javascript">
+    $('#reservationtime').daterangepicker({
+        timePicker: false,
+        "showDropdowns": true,
+        format: 'DD/MM/YYYY'
+    }, function (start, end, label) {
+        $('#from_date').val(start.format('DD/MM/YYYY'));
+        $('#to_date').val(end.format('DD/MM/YYYY'));
+    });
+</script>
+</body>
+
+</html>

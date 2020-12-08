@@ -3,9 +3,7 @@
         <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
                 <a href="" class="site_title" style="color: seagreen">
-                    <!--<img th:src="@{/resources/image/yotel-logo-2.png}" alt="..." class="img-circle profile_img"/>-->
-<!--                    <img style="height: 35px;" th:src="@{/resources/image/app-logo.png}" alt="..." />-->
-                    JobSearch247 CMS
+                    Motel CMS
                 </a>
             </div>
             <div class="clearfix"></div>
@@ -14,122 +12,18 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                 <div class="menu_section">
                     <ul class="nav side-menu">
-                        <!--<li sec:authorize="hasAnyAuthority('ROLE_PARTNER_USER') and not hasAnyAuthority('ROLE_ADMIN', 'ROLE_PARTNER_ADMIN')">-->
-                            <!--<a><i class="fa fa-group"></i> Đối soát<span class="fa fa-chevron-down"></span></a>-->
-                            <!--<ul class="nav child_menu">-->
-                                <!--<li>-->
-                                    <!--<a th:href="@{/cross_checking/campaign_list.html}">Danh sách chiến dịch</a>-->
-                                <!--</li>-->
-                            <!--</ul>-->
-                        <!--</li>-->
-
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <!--                            <a><i class="fa fa-bar-chart-o"></i>Quản lý<span class="fa fa-chevron-down"></span></a>-->
-                            <a><i class="fa fa-list-ul"></i>Quản lý job<span class="fa fa-chevron-down"></span></a>
+                        <li >
+                            <a><i class="fa fa-list-ul"></i>Bài đăng<span class="fa fa-chevron-down"></span></a>
                             <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/job/list}">Danh sách nghề nghiệp</span></a>
+                                <li>
+                                    <a th:href="@{/owner/list-post}">D/s bài đăng</span></a>
                                 </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/service-package/list}">Danh sách gói cước</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/fb-candidate/list}">Danh sách ứng viên</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/fb-group-post/list}">Danh sách bài đăng</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/candidate-job/list}">Danh sách nghề nghiệp ứng viên</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/location-area/list}">Danh sách địa điểm</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN','ROLE_PARTNER_USER' )">
-                            <a><i class="fa fa-male"></i>Cộng tác viên<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN','ROLE_PARTNER_USER' )">
-                                    <a th:href="@{/ctv/}">D/S công việc</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <a><i class="fa fa-key"></i>Quản lý keyword<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/keyword/keyword_recruit.html}">Từ khóa tuyển dụng</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/keyword/keyword_blacklist.html}">Từ khóa blacklist</span></a>
+                                <li>
+                                    <a th:href="@{/owner/new-post}">Tạo bài đăng</span></a>
                                 </li>
                             </ul>
                         </li>
 
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <a><i class="fa fa-sticky-note"></i>Quản lý giao dịch<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/service-package-transaction/list}">Danh sách giao dịch gói</span></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <a><i class="fa fa-phone"></i>CSKH<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/customer-care/request-register}">Yêu cầu đăng ký</span></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <!--                            <a><i class="fa fa-bar-chart-o"></i>Quản lý<span class="fa fa-chevron-down"></span></a>-->
-                            <a><i class="fa fa-list-ul"></i>Quản lý quét<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/fb_group/fb_group_list.html}">Danh sách group</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/fb_account/fb_account_list.html}">Danh sách tài khoản quét</span></a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                            <a><i class="fa fa-cog"></i>Cấu hình<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                                    <a th:href="@{/sys_param/config_group_san.html}">Cấu hình group quét</span></a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                                    <a th:href="@{/sys_param/hazelcast_param.html}">Hazelcast info</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                            <a><i class="fa fa-bar-chart-o"></i>Báo cáo<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/report/report_scan_posts.html}">Báo cáo lượng post</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li sec:authorize="hasAnyAuthority('ROLE_PARTNER_ADMIN','ROLE_ADMIN','ROLE_PARTNER_USER')">
-                            <a><i class="fa fa-user"></i>Quản Lý Tài khoản<span class="fa fa-chevron-down"></span></a>
-                            <ul class="nav child_menu">
-                                <li sec:authorize="hasAnyAuthority('ROLE_PARTNER_ADMIN')">
-                                    <a th:href="@{/account/show_profile.html}">Hồ sơ cá nhân</a>
-                                </li>
-                                <li sec:authorize="hasAnyAuthority( 'ROLE_ADMIN')">
-                                    <a th:href="@{/account/user_list.html}">Danh sách tài khoản</a>
-                                </li>
-                                <li><a th:href="@{/account/change_password.html}">Đổi mật khẩu</a></li>
-                                <li><a th:href="@{/logout.html}">Đăng xuất</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div>
             </div>

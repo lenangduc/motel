@@ -9,11 +9,14 @@ import java.math.BigInteger;
 @Data
 @Entity
 @Table(name = "owner")
-public class owner implements Serializable {
+public class Owner implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "account_id")
+    private Long accountId;
 
     @Column(name = "cmnd")
     private String cmnd;
@@ -27,7 +30,7 @@ public class owner implements Serializable {
     @Column( name = "email")
     private String email;
 
-    public owner() {
+    public Owner() {
 
     }
 }
