@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Chi tiết bài đăng</title>
+    <title>Tạo mới</title>
     <content th:replace="fragments/init :: head"></content>
     <style>
         #errorMessage {
@@ -61,7 +61,7 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <div class="nav toggle" style="width: auto;padding-top: 10px">
-                        <b id="titlePage" style="font-size: x-large; color: white">Bài đăng chi tiết</b>
+                        <b id="titlePage" style="font-size: x-large; color: white">Tạo mới</b>
                     </div>
                     <div class="nav navbar-nav navbar-right">
                         <content th:replace="fragments/top-nav :: li_user"></content>
@@ -76,7 +76,7 @@
                         <li class="breadcrumb-item">
                             <a th:href="@{/owner/list-post}" data-toggle="tooltip" title="Trở Về Danh Sách">Danh sách bài đăng</a>
                         </li>
-                        <li class="breadcrumb-item active">Chi tiết</li>
+                        <li class="breadcrumb-item active">Tạo mới</li>
                     </ol>
                 </div>
             </div>
@@ -84,18 +84,19 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
-                            <form class="updateForm" th:object="${post}" th:action="@{/owner/update-post}" method="POST" >
+                            <form class="updateForm" th:object="${post}"
+                                  th:action="@{/owner/new-post}" method="POST" enctype="multipart/form-data">
                                 <div class="alert alert-danger" id="errorMessage"
                                      style="text-align:left; color: red; font-weight: bold; font-size: 13px;"
                                      th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
-                                <input id="post-id" hidden th:field="*{id}">
+                                <input hidden id = "post-id" th:field="*{id}"/>
                                 <div class="col-lg-6 col-xs-12">
                                     <div class="tags form-group">
                                         <label style="display: inline-flex;"> Quận, Thành phố&nbsp;<span style="color: red">&#42;</span></label>
                                         <div class="position-relative">
                                             <input id = "location-id" th:field="*{locationArea}"  hidden />
                                             <input  class="form-control" id = "location-name" th:field="*{locationName}" autocomplete="off" required/>
-                                        </div>
+                                    </div>
                                     </div>
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Địa chỉ cụ thể&nbsp;<span style="color: red">&#42;</span></label>
@@ -146,8 +147,14 @@
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Gần những địa điểm nào</label>
                                         <div  style="min-height: 30px;">
-                                            <input id="listAddressTags" type="text" name='addressRelated' placeholder="tag1, tag2, tag3"
+                                            <input id="listAddressTags" type="text" name='addressRelated' placeholder="tag1, tag2, tag3" th:field="*{addressRelated}"
                                                    class="tags form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Hình ảnh</label>
+                                        <div  style="min-height: 30px;">
+                                            <input type="file" multiple name="images"/>
                                         </div>
                                     </div>
                                 </div>
@@ -208,36 +215,15 @@
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Các tiện ích khác</label>
                                         <div  style="min-height: 30px;">
-                                            <input id="listOtherUtility" type="text" name='listOtherUtility' placeholder="tag1, tag2, tag3"
+                                            <input id="listOtherUtility" type="text" name='listOtherUtility' placeholder="tag1, tag2, tag3" th:field="*{otherUtility}"
                                                    class="tags form-control"/>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-xs-12">
-                                    <div class="form-group" th:if = "*{isAccept != 1}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                                        <label style="display: inline-flex;">&nbsp;Duyệt <span style="color: red">&#42;</span></label>
-                                        <div>
-                                            <select class="form-control selectpicker" th:field="*{isAccept}">
-                                                <option value="1"> Duyệt</option>
-                                                <option value="-1"> Từ chối</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-xs-12" >
-                                    <div class="form-group">
-                                        <label style="display: inline-flex;">Hình ảnh</label>
-                                        <div th:each="item :${path}"  >
-                                            <img  th:src="'http://localhost:8080' + ${item}" alt="Chưa có hình ảnh"  />
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group pull-left">
-                                        <button  sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
-                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
-                                        <button  th:if = "*{isAccept == 0}"  sec:authorize="hasAnyAuthority('ROLE_OWNER')"
-                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
+                                        <button type="submit" id="btnSubmit" class="btn btn-submit ripple ripple-js">Tạo</button>
                                         <a href="#" onclick=" window.history.go(-1);" class="btn btn-round btn-cancel-yotel">Hủy bỏ</a>
                                     </div>
                                 </div>
@@ -255,14 +241,14 @@
 <!-- /#wrapper -->
 
 <content th:replace="fragments/init :: script"></content>
-
 <!-- FastClick -->
 <script th:src="@{/resources/gentelella-master/vendors/fastclick/lib/fastclick.js}"></script>
 <!-- jQuery Tags Input -->
 <script th:src="@{/resources/gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
 
+
 <script type="text/javascript">
-    let location_autocomplete;
+    var location_autocomplete;
     $.ajax({
         url: APPLICATION_CONTEXT + "location-area/list/location",
         type: 'GET',

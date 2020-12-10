@@ -73,18 +73,34 @@
                                     <th>Ngày yêu cầu</th>
                                     <th>Ngày đăng</th>
                                     <th>Thời lượng</th>
-                                    <th>Trạng thái</th>
+                                    <th>Địa điểm</th>
+                                    <th>TT duyệt</th>
+                                    <th>TT thuê</th>
                                     <th>Chi tiết</th>
                                     </thead>
                                     <tbody th:if="${posts} != null">
                                     <tr th:each="post, iterStat : ${posts}">
                                         <td th:text="${iterStat.count}"></td>
-                                        <td style="min-width: 150px;" th:text="${post.dateRequest}"></td>
-                                        <td th:text="${post.datePost}" ></td>
+                                        <td th:text="${#dates.format(post.dateRequest, 'dd/MM/yyyy')}"></td>
+                                        <td th:text="${#dates.format(post.datePost, 'dd/MM/yyyy')}"></td>
                                         <td th:text="${post.duration}" ></td>
+                                        <td th:text="${post.addressRoom}" ></td>
+                                        <td >
+                                            <span th:if="${post.isAccept} == 1">Đã duyệt</span>
+                                            <span th:if="${post.isAccept} == 0" style="color: orangered"> Chưa duyệt </span>
+                                            <span th:if="${post.isAccept} == -1"> Từ chối </span>
+                                        </td>
                                         <td>
-                                            <span th:if="${post.isRental} == 1">Đã cho thuê</span>
-                                            <span th:if="${post.isRental} == 0" style="color: orangered"> Chưa cho thuê </span>
+                                            <span th:id="'statusId'+${post.id}" th:if="${post.isRental} == 1"
+                                                  th:onclick="'changeStatus(\''+ ${post.id} +'\')'" th:status="${post.isRental}">
+                                                <input type="checkbox" class="js-switch" style="display: none" checked/>
+                                            </span>
+                                            <span th:id="'statusId'+${post.id}" th:if="${post.isRental} == 0"
+                                                  th:onclick="'changeStatus(\''+ ${post.id} +'\')'" th:status="${post.isRental}">
+                                                <input type="checkbox" class="js-switch" style="display: none" />
+                                            </span>
+                                            <span th:if="${post.isRental} == 1">Đã thuê</span>
+                                            <span th:if="${post.isRental} == 0" style="color: orangered"> Chưa thuê </span>
                                         </td>
                                         <td class="text-center">
                                             <a th:href="@{'/owner/show/' + ${post.id}}">
@@ -111,6 +127,66 @@
 
 <content th:replace="fragments/init :: script"></content>
 <script type="text/javascript">
+    function changeStatus(id) {
+        var currentStatus = $('#statusId'+ id).attr("status");
+        console.log("currentStatus " + currentStatus)
+        var statusChangeTo;
+        if (currentStatus == 0) {
+            statusChangeTo = 1;
+            $('#statusId'+ id).attr("status", "1");
+        } else if (currentStatus == 1) {
+            statusChangeTo = 0;
+            $('#statusId'+ id).attr("status", "0");
+        }
+
+        if (statusChangeTo == null) return ;
+
+        $.ajax({
+            url: APPLICATION_CONTEXT + "owner/update-is-rental",
+            type: 'GET',
+            headers: {
+                // Accept : "application/json"
+            },
+            data: {
+                status: statusChangeTo,
+                id:id
+            },
+            success: function (result) {
+                console.log(result);
+            },
+        })
+    }
+
+    function changeIsAccept(id) {
+        var currentStatus = $('#statusId'+ id).attr("status");
+        console.log("currentStatus " + currentStatus)
+        var statusChangeTo;
+        if (currentStatus == 0) {
+            statusChangeTo = 1;
+            $('#statusId'+ id).attr("status", "1");
+        } else if (currentStatus == 1) {
+            statusChangeTo = 0;
+            $('#statusId'+ id).attr("status", "0");
+        }
+
+        if (statusChangeTo == null) return ;
+
+        $.ajax({
+            url: APPLICATION_CONTEXT + "owner/update-is-accept",
+            type: 'GET',
+            headers: {
+                // Accept : "application/json"
+            },
+            data: {
+                status: statusChangeTo,
+                id:id
+            },
+            success: function (result) {
+                console.log(result);
+            },
+        })
+    }
+
     $('#reservationtime').daterangepicker({
         timePicker: false,
         "showDropdowns": true,

@@ -75,9 +75,7 @@ public class WebSecurityDefaultConfiguration extends WebSecurityConfigurerAdapte
     	   http
         		.authorizeRequests()
 				.antMatchers("/webjars/**", "/resources/**", "/assets/**", "/fonts/**", "/ws/**").permitAll()
-				.antMatchers("/ctv/**").hasAnyAuthority("ROLE_PARTNER_USER", "ROLE_ADMIN")
-				.antMatchers("/fb-group-post/show/**", "/fb-group-post/update/**", "/candidate-job/show/**", "/candidate-job/update/**", "/job/listJob", "/location-area/list/location").hasAnyAuthority("ROLE_PARTNER_USER", "ROLE_ADMIN")
-				.antMatchers("/job/**", "/service-package/**", "/fb-candidate/**", "/fb-group-post/**", "/candidate-job/**", "/location-area/**").hasAnyAuthority("ROLE_ADMIN")
+				.antMatchers("/**").hasAnyAuthority("ROLE_OWNER", "ROLE_ADMIN")
 				.anyRequest().authenticated()
         	.and()
         	.exceptionHandling()

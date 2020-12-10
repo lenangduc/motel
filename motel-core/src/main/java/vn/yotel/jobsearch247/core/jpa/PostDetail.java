@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Entity
@@ -14,11 +15,14 @@ public class PostDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "post_id")
-    private Long PostId;
+    @Column(name = "owner_id")
+    private Long ownerId;
 
     @Column(name = "address_room")
     private String addressRoom;
+
+    @Column(name = "location_area")
+    private Integer locationArea;
 
     @Column ( name = "address_related", columnDefinition = "TEXT")
     private String addressRelated;
@@ -62,7 +66,41 @@ public class PostDetail implements Serializable {
     @Column( name = "duration")
     private Integer duration;
 
-    PostDetail() {
+    @Column( name = "is_rental")
+    private Integer isRental;
+
+    @Column( name = "is_accept")
+    private Integer isAccept;
+
+    @Temporal(value = TemporalType.DATE)
+    @Column( name = "date_request")
+    private Date dateRequest;
+
+    @Temporal(value = TemporalType.DATE)
+    @Column( name = "date_post")
+    private Date datePost;
+
+    @Column( name = "location_name")
+    private String locationName;
+
+    @Column( name = "img_path")
+    private String imgPath;
+
+    public enum isAccept {
+        ACCEPT(1), NOT_ACCEPT(0);
+
+        private final Integer value;
+
+        isAccept(int value) {
+            this.value = value;
+        }
+
+        public Integer getValue() {
+            return this.value;
+        }
+    }
+
+    public PostDetail() {
 
     }
 

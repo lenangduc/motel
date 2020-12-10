@@ -31,7 +31,7 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableSpringDataWebSupport
 @Profile("FootballGame")
 @ComponentScan(basePackages = { "vn.yotel.admin.web.controller",
-        "vn.yotel.jobdata.cms.web.controller","vn.yotel.jobdata.core" })
+        "vn.yotel.jobsearch247.cms.web.controller","vn.yotel.jobsearch247.core" })
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
 	@Autowired
@@ -42,6 +42,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/", "classpath:/META-INF/web-resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		registry.addResourceHandler("/assets/**").addResourceLocations("/", "/assets/", "classpath:/META-INF/web-assets/");
+		registry.addResourceHandler("/upload/**").addResourceLocations( "file:///F:/documents/WEB/motelUpload/");
 	}
 
 	@Bean

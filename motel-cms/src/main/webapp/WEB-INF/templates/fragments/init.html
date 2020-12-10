@@ -243,9 +243,9 @@
     </style>
 </content>
 
-
 <!--init script-->
 <content th:fragment="script" th:remove="tag">
+    <input hidden id="application-context" th:value="@{/}">
     <script type="text/javascript" th:src="@{/resources/gentelella-master/jquery/dist/jquery.min.js}"></script>
     <!-- Bootstrap -->
     <script th:src="@{/resources/gentelella-master/bootstrap/dist/js/bootstrap.min.js}"></script>
@@ -281,6 +281,9 @@
     <script type="text/javascript" th:src="@{/resources/gentelella-master/vendors/pnotify/dist/pnotify.nonblock.js}"></script>
 
     <script type="text/javascript">
+
+        var APPLICATION_CONTEXT = $('#application-context').val();
+
         $(window).on('load',function () {
             $('#page-wrapper').css('min-height','900');
         })
@@ -430,5 +433,3 @@
     </script>
 
 </content>
-
-
