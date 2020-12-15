@@ -24,12 +24,17 @@ public class PostDetailServiceImpl extends GenericBoImpl<PostDetail, Long> imple
     }
 
     @Override
-    public List<PostDetail> findListPostByOwnerId(Long ownerId) {
+    public List<Object[]> findListPostByOwnerId(Long ownerId) {
         return postDetailRepo.findListPostByOwnerId(ownerId);
     }
 
     @Override
     public List<PostDetail> findListByIsAccept(Integer value) {
         return postDetailRepo.findListByIsAccept(value);
+    }
+
+    @Override
+    public List<Object[]> findListPostApi() {
+        return postDetailRepo.findListPostApi();
     }
 }

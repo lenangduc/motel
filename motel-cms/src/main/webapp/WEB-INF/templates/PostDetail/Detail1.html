@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Chi tiết</title>
+    <content th:replace="fragments/init :: head"></content>
+    <style>
+        #errorMessage {
+            padding: 8px;
+            background-color: #ff816b;
+        }
+
+
+    </style>
+</head>
+<body class="nav-md">
+<input type="hidden" id="application-context" th:value="@{/}"/>
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <div class="top_nav">
+            <div class="nav_menu" style="background-color: seagreen">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="nav toggle" style="width: auto;padding-top: 10px">
+                        <b id="titlePage" style="font-size: x-large; color: white">Chi tiết bài đăng</b>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <content th:replace="fragments/top-nav :: li_user"></content>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row breadcrumb-wrapper">
+                <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
+                    <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
+                        <li class="breadcrumb-item active">Quản lý</li>
+                        <li  sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')" class="breadcrumb-item">
+                            <a th:href="@{/owner/list-post}" data-toggle="tooltip" > Danh sách bài đăng  </a>
+                        </li>
+                        <li class="breadcrumb-item active">Chi tiết</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form style="margin-left: 5px; padding-bottom: 20px" th:object="${posts}"  th:action="@{/owner/extend}" method="GET" >
+                                <div class="row">
+                                    <input hidden th:field="*{id}"/>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class = "">
+                                            <span> Bài đăng mã số : </span>
+                                            <span th:text="*{postId}" style="font-size: 20px; color: #03aee2;"> </span>
+                                        </div>
+                                        <div class="block-2-1">
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Địa chỉ: </span>
+                                                <span th:text="*{addressRoom}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> kiểu phòng: </span>
+                                                <span th:text="*{roomType}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Số lượng phòng: </span>
+                                                <span th:text="*{amountRow}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Diện tích: </span>
+                                                <span th:text="*{area}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá thuê: </span>
+                                                <span th:text="*{priceRoom}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Chung chủ: </span>
+                                                <span th:text="*{withOwner}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Phòng tắm: </span>
+                                                <span th:text="*{area}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Bếp: </span>
+                                                <span th:text="*{kitchen}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Bình nóng lạnh: </span>
+                                                <span th:text="*{heater}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Ban công: </span>
+                                                <span th:text="*{bathroom}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá nước: </span>
+                                                <span th:text="*{waterPrice}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá điện: </span>
+                                                <span th:text="*{electricityPrice}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Những địa điểm gần đây: </span>
+                                                <span th:name="addressRelated" th:text="*{addressRelated}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Tiện ích khác: </span>
+                                                <span th:name="otherUtility" th:text="*{otherUtility}" readonly ></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class = "">
+                                            <div  >
+                                                <div class="form-group">
+                                                    <label style="display: inline-flex;">Hình ảnh</label>
+                                                    <div th:each="item :${path}"  >
+                                                        <img  th:width="100px" th:src="'http://localhost:8080' + ${item}" alt="Chưa có hình ảnh"  />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-lg-2 col-xs-12">
+                                        <span> Gói cước </span>
+                                        <div class="position-relative">
+                                            <div th:if = "${duration} == -1">
+                                                <select class="form-control selectpicker" name="duration" th:value="${duration}">
+                                                    <option value="1"> 1 Tuần - 10.000VNĐ </option>
+                                                    <option value="4"> 1 Tháng - 40.000VNĐ </option>
+                                                    <option value="12"> 1 Quý - 100.000VNĐ</option>
+                                                    <option value="48"> 1 Năm - 300.000VNĐ </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group pull-left">
+                                        <button  sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
+                                        <button  th:if = "*{isAccept == 0}"  sec:authorize="hasAnyAuthority('ROLE_OWNER')"
+                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
+                                        <a href="#" onclick=" window.history.go(-1);" class="btn btn-round btn-cancel-yotel">Hủy bỏ</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<content th:replace="fragments/init :: script"></content>
+
+<!-- FastClick -->
+<script th:src="@{/resources/gentelella-master/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- jQuery Tags Input -->
+<script th:src="@{/resources/gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
+
+<script type="text/javascript">
+    var applicationContext = $('#application-context').val();
+</script>
+<script>
+    var applicationContext = $('#application-context').val();
+    var location_autocomplete;
+    $.ajax({
+        url: applicationContext + "location-area/list/location",
+        type: 'GET',
+        headers: {
+            accept: 'application/json'
+        },
+        data: {},
+        success: function (result) {
+            location_autocomplete =
+                autocomplete(document.getElementById("location-name"), result,
+                    function (selectedValue) {
+                        $('#location-id').val(selectedValue);
+                    });
+        },
+    }).always(function (ketqua) {
+    });
+
+    var job_autocomplete;
+    $.ajax({
+        url: applicationContext + "job/listJob",
+        type: 'GET',
+        headers: {
+            accept: 'application/json'
+        },
+        data: {},
+        success: function (result) {
+            job_autocomplete =
+                autocomplete(document.getElementById("job-name"), result,
+                    function (selectedValue) {
+                        $('#job-id').val(selectedValue);
+                    });
+        },
+    }).always(function (ketqua) {
+    });
+
+</script>
+
+
+<script>
+    $("#errorMessage").hide().fadeIn(0).delay(3000).fadeOut(500);
+</script>
+
+<script>
+
+
+</script>
+
+</body>
+
+</html>

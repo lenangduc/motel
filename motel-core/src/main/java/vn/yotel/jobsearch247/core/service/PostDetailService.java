@@ -7,7 +7,9 @@ import java.util.List;
 
 public interface PostDetailService extends GenericBo<PostDetail, Long> {
 
-    List<PostDetail> findListPostByOwnerId(Long ownerId);
+    List<Object[]> findListPostByOwnerId(Long ownerId);
 
     List<PostDetail> findListByIsAccept(Integer value);
+
+    List<Object[]> findListPostApi();
 }

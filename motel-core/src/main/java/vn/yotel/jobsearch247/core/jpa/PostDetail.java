@@ -15,6 +15,9 @@ public class PostDetail implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column( name = "post_id")
+    private String postId;
+
     @Column(name = "owner_id")
     private Long ownerId;
 
@@ -63,22 +66,11 @@ public class PostDetail implements Serializable {
     @Column ( name = "other_utility", columnDefinition = "TEXT")
     private String otherUtility;
 
-    @Column( name = "duration")
-    private Integer duration;
-
     @Column( name = "is_rental")
     private Integer isRental;
 
     @Column( name = "is_accept")
     private Integer isAccept;
-
-    @Temporal(value = TemporalType.DATE)
-    @Column( name = "date_request")
-    private Date dateRequest;
-
-    @Temporal(value = TemporalType.DATE)
-    @Column( name = "date_post")
-    private Date datePost;
 
     @Column( name = "location_name")
     private String locationName;
@@ -86,8 +78,22 @@ public class PostDetail implements Serializable {
     @Column( name = "img_path")
     private String imgPath;
 
+    @Column(name = "date_post", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date datePost;
+
+    @Column(name = "date_expired", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dateExpired;
+
+    @Column(name = "is_pay")
+    private Integer isPay;
+
+    @Column ( name = "status")
+    private Integer status;
+
     public enum isAccept {
-        ACCEPT(1), NOT_ACCEPT(0);
+        ACCEPT(1), NOT_ACCEPT(0), EXPIRED(2);
 
         private final Integer value;
 

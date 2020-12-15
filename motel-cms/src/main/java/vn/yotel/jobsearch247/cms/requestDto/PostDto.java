@@ -27,7 +27,6 @@ public class PostDto implements Serializable
     private Integer electricityPrice;
     private Integer waterPrice;
     private String otherUtility;
-    private Integer duration;
     private String locationName;
     private List<MultipartFile> images;
 

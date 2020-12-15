@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Đăng kí - gia hạn bài đăng</title>
+    <content th:replace="fragments/init :: head"></content>
+    <style>
+        #errorMessage {
+            padding: 8px;
+            background-color: #ff816b;
+        }
+        .title {
+            font-size: 20px;
+        }
+
+        .block {
+            display: flex;
+        }
+
+        .block-2 {
+            margin-top: 10px;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .block-2-1 {
+            border: 1px dotted;
+            border-radius: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .block-1 {
+            text-align: center;
+        }
+
+        .content {
+            padding: 10px;
+        }
+
+        .post-content {
+            border-radius: 3px;
+            max-width: 600px;
+            margin: 20px 20px 10px 25px;
+            border: 1px solid #f1f1f705;
+            background: #c6dcef17;
+        }
+
+        .comment {
+            margin-left: 15px;
+            margin-bottom: 10px;
+        }
+
+        .cmt-author {
+            font-size: 1.1em;
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        .cmt-content {
+            background: #efefef8f;
+            border-radius: 0 20px 20px 17px;
+            margin-left: 30px;
+            margin-right: 20px;
+        }
+
+        .form_update {
+            margin-left: 40px;
+            flex-grow: 1;
+            margin-top: 10px;
+            line-height: 1.6;
+        }
+
+        .form-update-1 {
+            min-width: 300px;
+        }
+
+        .tags {
+            margin-left: 10px;
+            margin-top: 10px;
+            display: grid;
+        }
+
+        .input {
+            margin-top: 5px;
+            border-radius: 3px;
+            min-width: 100%;
+            border: 1px solid #908a8a;
+        }
+
+        .infor-title {
+            margin-left: 3px;
+        }
+
+        .submit {
+            margin-top: 10px;
+            display: grid;
+            margin-left: 10px;
+        }
+
+        .author-post {
+            margin-right: 24px;
+            font-size: 1.1em;
+            text-align: right;
+            margin-bottom: 10px;
+        }
+
+        .content-detail {
+            text-align: right;
+            margin-right: 25px;
+            margin-bottom: 10px;
+        }
+
+        .position-relative {
+            position: relative;
+        }
+
+    </style>
+</head>
+<body class="nav-md">
+<input type="hidden" id="application-context" th:value="@{/}"/>
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <div class="top_nav">
+            <div class="nav_menu" style="background-color: seagreen">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+                    <div class="nav toggle" style="width: auto;padding-top: 10px">
+                        <b id="titlePage" style="font-size: x-large; color: white"> Đăng kí - gia hạn bài đăng </b>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <content th:replace="fragments/top-nav :: li_user"></content>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row breadcrumb-wrapper">
+                <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
+                    <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
+                        <li class="breadcrumb-item active">Quản lý</li>
+                        <li class="breadcrumb-item active" >Đăng kí - gia hạn bài đăng</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <form style="margin-left: 5px; padding-bottom: 20px" th:object="${posts}"  th:action="@{/owner/extend}" method="GET" >
+                                <div class="block">
+<!--                                    <div class="block-2">-->
+<!--                                        <div class = "title block-1">-->
+<!--                                            <span>  Đăng kí hoặc gia hạn </span>-->
+<!--                                            <span th:text="${posts.postId}" style="font-size: 20px; color: #03aee2;"> </span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+                                    <div class="form_update">
+                                        <div class="title block-1">
+                                            <span>  Đăng kí hoặc gia hạn </span>
+                                            <span th:text="${posts.postId}" style="font-size: 20px; color: #03aee2;"> </span>
+                                        </div>
+                                        <div class="form-update-1">
+                                            <div class="tags form-group">
+                                                <input hidden th:field="*{id}" name="id"/>
+                                                <span class="infor-title"> Gói cước </span>
+                                                <div class="position-relative">
+                                                    <div>
+                                                        <select class="form-control selectpicker" name="duration" th:value="${duration}">
+                                                            <option value="1"> 1 Tuần - 10.000VNĐ </option>
+                                                            <option value="4"> 1 Tháng - 40.000VNĐ </option>
+                                                            <option value="12"> 1 Quý - 100.000VNĐ</option>
+                                                            <option value="48"> 1 Năm - 300.000VNĐ </option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-12">
+                                                <div class="form-group pull-left">
+                                                    <button type="submit" id="btnSubmit" class="btn btn-round btn-basic-yotel">Cập
+                                                        nhật
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<content th:replace="fragments/init :: script"></content>
+
+<!-- FastClick -->
+<script th:src="@{/resources/gentelella-master/vendors/fastclick/lib/fastclick.js}"></script>
+<!-- jQuery Tags Input -->
+<script th:src="@{/resources/gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
+
+<script type="text/javascript">
+    var applicationContext = $('#application-context').val();
+</script>
+<script>
+    var applicationContext = $('#application-context').val();
+    var location_autocomplete;
+    $.ajax({
+        url: applicationContext + "location-area/list/location",
+        type: 'GET',
+        headers: {
+            accept: 'application/json'
+        },
+        data: {},
+        success: function (result) {
+            location_autocomplete =
+                autocomplete(document.getElementById("location-name"), result,
+                    function (selectedValue) {
+                        $('#location-id').val(selectedValue);
+                    });
+        },
+    }).always(function (ketqua) {
+    });
+
+    var job_autocomplete;
+    $.ajax({
+        url: applicationContext + "job/listJob",
+        type: 'GET',
+        headers: {
+            accept: 'application/json'
+        },
+        data: {},
+        success: function (result) {
+            job_autocomplete =
+                autocomplete(document.getElementById("job-name"), result,
+                    function (selectedValue) {
+                        $('#job-id').val(selectedValue);
+                    });
+        },
+    }).always(function (ketqua) {
+    });
+
+</script>
+
+
+<script>
+    $("#errorMessage").hide().fadeIn(0).delay(3000).fadeOut(500);
+</script>
+
+<script>
+
+
+</script>
+
+</body>
+
+</html>

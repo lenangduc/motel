@@ -29,7 +29,6 @@ public class LocationAreaController {
             log.error("", e);
             throw e;
         }
-
     }
 
 }

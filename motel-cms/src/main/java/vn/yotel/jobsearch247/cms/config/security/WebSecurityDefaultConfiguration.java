@@ -74,7 +74,7 @@ public class WebSecurityDefaultConfiguration extends WebSecurityConfigurerAdapte
         // @formatter:off
     	   http
         		.authorizeRequests()
-				.antMatchers("/webjars/**", "/resources/**", "/assets/**", "/fonts/**", "/ws/**").permitAll()
+				.antMatchers("/webjars/**", "/resources/**", "/assets/**", "/fonts/**", "/ws/**", "/api/**").permitAll()
 				.antMatchers("/**").hasAnyAuthority("ROLE_OWNER", "ROLE_ADMIN")
 				.anyRequest().authenticated()
         	.and()

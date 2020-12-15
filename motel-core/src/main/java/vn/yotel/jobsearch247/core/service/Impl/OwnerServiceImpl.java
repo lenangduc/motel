@@ -19,7 +19,7 @@ public class OwnerServiceImpl extends GenericBoImpl<Owner, Long> implements Owne
 
     @Override
     public <E extends JpaRepository<Owner, Long>> E getDAO() {
-        return null;
+        return (E) ownerRepo;
     }
 
     @Override

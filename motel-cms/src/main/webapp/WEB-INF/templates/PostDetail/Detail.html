@@ -126,17 +126,17 @@
                                             <input class="form-control" type="number" id="area" th:field="*{area}" required/>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label style="display: inline-flex;">Thời gian hiển thị&nbsp;<span style="color: red">&#42;</span></label>
-                                        <div>
-                                            <select class="form-control selectpicker" th:field="*{duration}">
-                                                <option value="1"> 1 Tuần - 10.000VNĐ </option>
-                                                <option value="4"> 1 Tháng - 40.000VNĐ</option>
-                                                <option value="12"> 1 Quý - 100.000VNĐ</option>
-                                                <option value="48"> 1 Năm - 300.000VNĐ </option>
-                                            </select>
-                                        </div>
-                                    </div>
+<!--                                    <div class="form-group">-->
+<!--                                        <label style="display: inline-flex;">Thời gian hiển thị&nbsp;<span style="color: red">&#42;</span></label>-->
+<!--                                        <div>-->
+<!--                                            <select class="form-control selectpicker" th:field="*{duration}">-->
+<!--                                                <option value="1"> 1 Tuần - 10.000VNĐ </option>-->
+<!--                                                <option value="4"> 1 Tháng - 40.000VNĐ</option>-->
+<!--                                                <option value="12"> 1 Quý - 100.000VNĐ</option>-->
+<!--                                                <option value="48"> 1 Năm - 300.000VNĐ </option>-->
+<!--                                            </select>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Giá phòng(VNĐ)<span style="color: red">&#42;</span></label>
                                         <div>
@@ -214,13 +214,16 @@
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-xs-12">
-                                    <div class="form-group" th:if = "*{isAccept != 1}" sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
-                                        <label style="display: inline-flex;">&nbsp;Duyệt <span style="color: red">&#42;</span></label>
-                                        <div>
-                                            <select class="form-control selectpicker" th:field="*{isAccept}">
-                                                <option value="1"> Duyệt</option>
-                                                <option value="-1"> Từ chối</option>
-                                            </select>
+                                    <div class="form-group" th:if = "*{isAccept != 1} " sec:authorize="hasAnyAuthority('ROLE_ADMIN')">
+                                        <div th:if = "*{isPay == 1}">
+                                            <label style="display: inline-flex;">&nbsp;Duyệt <span style="color: red">&#42;</span></label>
+                                            <div>
+                                                <select class="form-control selectpicker" th:field="*{isAccept}">
+                                                    <option value="0" selected > Chưa duyệt</option>
+                                                    <option value="1"> Duyệt</option>
+                                                    <option value="-1"> Từ chối</option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -234,9 +237,7 @@
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group pull-left">
-                                        <button  sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
-                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
-                                        <button  th:if = "*{isAccept == 0}"  sec:authorize="hasAnyAuthority('ROLE_OWNER')"
+                                        <button  th:if = "*{isAccept == 0}"
                                                  type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
                                         <a href="#" onclick=" window.history.go(-1);" class="btn btn-round btn-cancel-yotel">Hủy bỏ</a>
                                     </div>

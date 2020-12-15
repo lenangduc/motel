@@ -70,25 +70,27 @@
                                 <table class="table table-responsive table-striped table-bordered table-hover">
                                     <thead>
                                     <th>Stt</th>
-                                    <th>Ngày yêu cầu</th>
+                                    <th>Mã bài đăng</th>
                                     <th>Ngày đăng</th>
-                                    <th>Thời lượng</th>
+                                    <th>Ngày hết hạn</th>
                                     <th>Địa điểm</th>
                                     <th>TT duyệt</th>
                                     <th>TT thuê</th>
                                     <th>Chi tiết</th>
+                                    <th>Gia hạn</th>
                                     </thead>
                                     <tbody th:if="${posts} != null">
                                     <tr th:each="post, iterStat : ${posts}">
                                         <td th:text="${iterStat.count}"></td>
-                                        <td th:text="${#dates.format(post.dateRequest, 'dd/MM/yyyy')}"></td>
+                                        <td th:text="${post.postId}"></td>
                                         <td th:text="${#dates.format(post.datePost, 'dd/MM/yyyy')}"></td>
-                                        <td th:text="${post.duration}" ></td>
+                                        <td th:text="${#dates.format(post.dateExpired, 'dd/MM/yyyy')}"></td>
                                         <td th:text="${post.addressRoom}" ></td>
                                         <td >
                                             <span th:if="${post.isAccept} == 1">Đã duyệt</span>
                                             <span th:if="${post.isAccept} == 0" style="color: orangered"> Chưa duyệt </span>
                                             <span th:if="${post.isAccept} == -1"> Từ chối </span>
+                                            <span th:if="${post.isAccept} == 2"> Hết hạn </span>
                                         </td>
                                         <td>
                                             <span th:id="'statusId'+${post.id}" th:if="${post.isRental} == 1"
@@ -102,6 +104,7 @@
                                             <span th:if="${post.isRental} == 1">Đã thuê</span>
                                             <span th:if="${post.isRental} == 0" style="color: orangered"> Chưa thuê </span>
                                         </td>
+
                                         <td class="text-center">
                                             <a th:href="@{'/owner/show/' + ${post.id}}">
                                                 <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel"
@@ -109,6 +112,18 @@
                                                         class="fa fa-eye"> </i>
                                                 </button>
                                             </a>
+                                        </td>
+                                        <td class="text-center" th:if = "${post.status} == -1">
+                                            <a th:href="@{'/owner/show/extend/' + ${post.id}}">
+                                                <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel"><i
+                                                        class="fa fa-pencil"> </i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td class="text-center" th:if = "${post.status} == 1">
+                                            <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel" title="Chưa hết hạn">
+                                                <i class="fa fa-pencil"> </i>
+                                            </button>
                                         </td>
                                     </tbody>
                                 </table>
