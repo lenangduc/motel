@@ -9,7 +9,7 @@ public interface PostDetailService extends GenericBo<PostDetail, Long> {
 
     List<Object[]> findListPostByOwnerId(Long ownerId);
 
-    List<PostDetail> findListByIsAccept(Integer value);
+//    List<PostDetail> findListByIsAccept(Integer value);
 
     List<Object[]> findListPostApi();
 }

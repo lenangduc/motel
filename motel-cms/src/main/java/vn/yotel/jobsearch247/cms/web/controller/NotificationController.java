@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import vn.yotel.admin.service.AuthUserService;
 import vn.yotel.jobsearch247.core.jpa.Notification;
 import vn.yotel.jobsearch247.core.service.NotificationService;
 
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -21,12 +23,17 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private AuthUserService authUserService;
+
     @SneakyThrows
-    @RequestMapping(value = "/list/{id}", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/json")
+    @RequestMapping(value = "/list", method = { RequestMethod.GET}, produces = "application/json")
     @ResponseBody
-    public List<Notification> getOtherUtility(@PathVariable(name = "id") Long user_id) {
+    public List<Notification> getOtherUtility(Principal principal) {
         try {
-            List<Notification> notifications = notificationService.getNotificationByUserReceiverId(user_id);
+            String userName = principal.getName();
+            Long userId = authUserService.findByUsername(userName).getId();
+            List<Notification> notifications = notificationService.getNotificationByUserReceiverId(userId);
             return notifications;
         } catch (Exception e) {
             log.error("", e);

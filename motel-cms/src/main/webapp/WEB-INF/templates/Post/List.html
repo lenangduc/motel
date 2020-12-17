@@ -27,7 +27,14 @@
                     <div class="nav toggle" style="width: auto;padding-top: 10px">
                         <b id="titlePage" style="font-size: x-large; color: white">Danh sách bài đăng</b>
                     </div>
+                    <div class="nav navbar-nav navbar-right" >
+
+                    </div>
                     <div class="nav navbar-nav navbar-right">
+                        <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel" style="margin-top: 16px;"
+                                title="Cụ thể"><i
+                                class="fa fa-bell-o"> </i>
+                        </button>
                         <content th:replace="fragments/top-nav :: li_user"></content>
                     </div>
                 </nav>
@@ -142,6 +149,22 @@
 
 <content th:replace="fragments/init :: script"></content>
 <script type="text/javascript">
+    var listNotify;
+    setInterval(function () {
+        $.ajax({
+            url: APPLICATION_CONTEXT + "notification/list",
+            type: 'GET',
+            headers: {
+                accept: 'application/json'
+            },
+            data: {},
+            success: function (result) {
+                listNotify = result;
+            },
+        }).always(function (ketqua) {
+        });
+    }, 30000)
+
     function changeStatus(id) {
         var currentStatus = $('#statusId'+ id).attr("status");
         console.log("currentStatus " + currentStatus)

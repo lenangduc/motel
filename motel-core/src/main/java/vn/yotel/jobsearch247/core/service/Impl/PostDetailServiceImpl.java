@@ -28,10 +28,10 @@ public class PostDetailServiceImpl extends GenericBoImpl<PostDetail, Long> imple
         return postDetailRepo.findListPostByOwnerId(ownerId);
     }
 
-    @Override
-    public List<PostDetail> findListByIsAccept(Integer value) {
-        return postDetailRepo.findListByIsAccept(value);
-    }
+//    @Override
+//    public List<PostDetail> findListByIsAccept(Integer value) {
+//        return postDetailRepo.findListByIsAccept(value);
+//    }
 
     @Override
     public List<Object[]> findListPostApi() {

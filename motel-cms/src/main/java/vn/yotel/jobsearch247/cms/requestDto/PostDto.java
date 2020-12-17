@@ -1,6 +1,8 @@
 package vn.yotel.jobsearch247.cms.requestDto;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
@@ -8,7 +10,8 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class PostDto implements Serializable
 {
     private Long id;

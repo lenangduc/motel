@@ -163,8 +163,8 @@ public class OwnerController {
         String nameSend = authUserService.findOne(accountId).getUserName();
         Notification notification = new Notification();
         notification.setContent(nameSend + " đã cập nhập tình trạng thuê của bài đăng có mã số " + postDetail.getPostId());
-        notification.setUserReceiverId(accountId);
-        notification.setUserSendId(Long.valueOf(1));
+        notification.setUserReceiverId(Long.valueOf(1));
+        notification.setUserSendId(accountId);
         notification.setTime(new Date());
         notification.setStatus(0);
         notificationService.create(notification);

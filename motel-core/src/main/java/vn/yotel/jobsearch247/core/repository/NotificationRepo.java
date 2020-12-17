@@ -13,6 +13,6 @@ public interface NotificationRepo extends JpaRepository<Notification, Long> {
 
     @Query ( value = " select * from notification n " +
             " where n.user_receiver_id = :userId " +
-            " order by time desc ", nativeQuery = true)
+            " order by n.time desc ", nativeQuery = true)
     List<Notification> getNotificationByUserReceiverId(@Param("userId") Long user_id);
 }
