@@ -16,12 +16,11 @@ import vn.yotel.jobsearch247.cms.Helper.PostListHelper;
 import vn.yotel.jobsearch247.cms.Model.PostListModel;
 import vn.yotel.jobsearch247.cms.requestDto.PostDto;
 import vn.yotel.jobsearch247.core.jpa.Notification;
+import vn.yotel.jobsearch247.core.jpa.Owner;
 import vn.yotel.jobsearch247.core.jpa.PostDetail;
 import vn.yotel.jobsearch247.core.jpa.Transaction;
-import vn.yotel.jobsearch247.core.service.NotificationService;
-import vn.yotel.jobsearch247.core.service.OwnerService;
-import vn.yotel.jobsearch247.core.service.PostDetailService;
-import vn.yotel.jobsearch247.core.service.TransactionService;
+import vn.yotel.jobsearch247.core.model.BaseChoice;
+import vn.yotel.jobsearch247.core.service.*;
 
 import javax.validation.Valid;
 import java.io.File;
@@ -51,8 +50,32 @@ public class OwnerController {
     @Autowired
     private NotificationService notificationService;
 
+    @Autowired
+    private AuthUserBackService authUserBackService;
+
     Gson gson = new Gson();
     ObjectMapper objectMapper = new ObjectMapper();
+
+    @RequestMapping(value = "/show-form/new-account", method = RequestMethod.GET)
+    public String showFormNewAccountOwner(Model model) {
+        Owner owner = new Owner();
+        model.addAttribute("owner", owner);
+        return "Owner/New";
+    }
+
+    @RequestMapping(value = "/list/account", method = RequestMethod.GET)
+    @ResponseBody
+    public List<BaseChoice> ListAccount() {
+        try{
+            List<BaseChoice> baseChoiceList = authUserBackService.getBaseChoiceAccountOwner();
+            System.out.println(baseChoiceList.size());
+            return baseChoiceList;
+        }catch (Exception e){
+            log.error("", e);
+            throw e;
+        }
+    }
+
 
     @RequestMapping(value = "list-post", method = RequestMethod.GET)
     public String listPost(@RequestParam(value = "post_id", required = false) String postId,
@@ -172,22 +195,7 @@ public class OwnerController {
         notificationService.create(notification);
         return "success";
     }
-//
-////    @RequestMapping(value = "/update-is-accept", method = {RequestMethod.GET, RequestMethod.POST})
-////    @ResponseBody
-////    public String updateIsAccept(@RequestParam("status") Integer status,
-////                                 @RequestParam("id") Long id
-////    ) {
-////        PostDetail postDetail = postDetailService.findOne(id);
-////        Integer isAccept = postDetail.getIsAccept();
-////        if (isAccept != status && status == 1) {
-////            postDetail.setIsAccept(status);
-////            postDetail.setDatePost(new Date());
-////            postDetailService.update(postDetail);
-////        }
-////        return "success";
-////    }
-//
+
     @RequestMapping(value = "show-form", method = RequestMethod.GET)
     public String showFormNewPost(Model model) {
         PostDto postDto = new PostDto();

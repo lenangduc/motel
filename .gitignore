@@ -8,7 +8,7 @@
 #   ...
 
 */target
-**/build/**
+# **/build/**
 */.classpath
 */.project
 **/rebel.xml
