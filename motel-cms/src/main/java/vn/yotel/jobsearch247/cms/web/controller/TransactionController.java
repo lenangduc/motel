@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import vn.yotel.admin.jpa.AuthUser;
+import vn.yotel.admin.service.AuthUserService;
 import vn.yotel.jobsearch247.cms.Helper.TransactionModelHelper;
 import vn.yotel.jobsearch247.cms.Model.TransactionModel;
 import vn.yotel.jobsearch247.core.jpa.PostDetail;
 import vn.yotel.jobsearch247.core.jpa.Transaction;
+import vn.yotel.jobsearch247.core.service.OwnerService;
 import vn.yotel.jobsearch247.core.service.PostDetailService;
 import vn.yotel.jobsearch247.core.service.TransactionService;
 
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,11 +34,21 @@ public class TransactionController {
     @Autowired
     private PostDetailService postDetailService;
 
-    @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list (Model model) {
-        List<Object[]> transactions = transactionService.findByPostId(null);
+    @Autowired
+    private AuthUserService authUserService;
+
+    @Autowired
+    private OwnerService ownerService;
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String list (@RequestParam(value = "post_id", required = false) String postId,
+                        Model model, Principal principal) {
+        AuthUser authUser = authUserService.findByUsername(principal.getName());
+        Long ownerId = ownerService.findByAccountId(authUser.getId());
+        List<Object[]> transactions = transactionService.findByPostId(postId, ownerId);
         List<TransactionModel> Transactions = TransactionModelHelper.parseTransactionModels(transactions);
         model.addAttribute("trans", Transactions);
+        model.addAttribute("post_id", postId);
         return "Transaction/List";
     }
 

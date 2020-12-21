@@ -9,6 +9,7 @@
   <modules>
 	<module>motel-core</module>
 	<module>motel-cms</module>
+    <module>motel-api-employer</module>
   </modules>
   <name>jobsearch247</name>
   <url>http://maven.apache.org</url>

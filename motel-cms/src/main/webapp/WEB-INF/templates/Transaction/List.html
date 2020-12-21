@@ -39,33 +39,26 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
-                            <!--                            <form role="form" th:action="@{/ctv/}"-->
-                            <!--                                  method="GET">-->
-                            <!--                                <div class="row">-->
-                            <!--                                    <div class="col-lg-3 col-sm-4 col-xs-12">-->
-                            <!--                                        <label>Từ ngày - Đến ngày</label>-->
-                            <!--                                        <div class="input-prepend input-group">-->
-                            <!--                                            <span class="add-on input-group-addon"><i-->
-                            <!--                                                    class="glyphicon glyphicon-calendar fa fa-calendar"></i></span>-->
-                            <!--                                            <input type="text" name="from_date" id="from_date" hidden="true"-->
-                            <!--                                                   th:value="${from_date}"/>-->
-                            <!--                                            <input type="text" name="to_date" id="to_date" hidden="true" th:value="${to_date}"/>-->
-                            <!--                                            <input type="text" style="width: 100%" name="date_range" id="reservationtime"-->
-                            <!--                                                   class="form-control span4" th:value="${from_date} + ' - ' + ${to_date}"-->
-                            <!--                                                   readonly="readonly"/>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="col-lg-3 col-xs-4 col-sm-12">-->
-                            <!--                                        <label>&nbsp;</label>-->
-                            <!--                                        <div>-->
-                            <!--                                            <button type="submit" id="btnSearch" class="btn btn-round btn-basic-yotel"><i-->
-                            <!--                                                    class="fa fa-search"></i>-->
-                            <!--                                                Tìm kiếm-->
-                            <!--                                            </button>-->
-                            <!--                                        </div>-->
-                            <!--                                    </div>-->
-                            <!--                                </div>-->
-                            <!--                            </form>-->
+                            <form role="form" th:action="@{/transaction/list}"
+                                  method="GET">
+                                <div class="row">
+                                    <div class="col-lg-3 col-sm-6 col-xs-12">
+                                        <label>Mã post</label>
+                                        <div>
+                                            <input class="form-control" name="post_id" type="text" placeholder="Mã bài đăng" th:value="${post_id}" >
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-xs-4 col-sm-12">
+                                        <label>&nbsp;</label>
+                                        <div>
+                                            <button type="submit" id="btnSearch" class="btn btn-round btn-basic-yotel"><i
+                                                    class="fa fa-search"></i>
+                                                Tìm kiếm
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                             <div class="panel-table-wrapper custom-scroll" style="overflow-x:auto;">
                                 <table class="table table-responsive table-striped table-bordered table-hover">
                                     <thead>

@@ -6,5 +6,5 @@ import vn.yotel.jobsearch247.core.jpa.Transaction;
 import java.util.List;
 
 public interface TransactionService extends GenericBo<Transaction, Long> {
-    List<Object[]> findByPostId(String post);
+    List<Object[]> findByPostId(String post, Long ownerId);
 }

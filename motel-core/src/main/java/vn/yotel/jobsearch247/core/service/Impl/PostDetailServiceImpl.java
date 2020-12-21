@@ -9,6 +9,7 @@ import vn.yotel.jobsearch247.core.repository.PostDetailRepo;
 import vn.yotel.jobsearch247.core.service.PostDetailService;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 @Service(value = "postDetailService")
@@ -24,17 +25,27 @@ public class PostDetailServiceImpl extends GenericBoImpl<PostDetail, Long> imple
     }
 
     @Override
-    public List<Object[]> findListPostByOwnerId(Long ownerId) {
-        return postDetailRepo.findListPostByOwnerId(ownerId);
+    public List<Object[]> findListPostByOwnerId( Long ownerId, String postId, Integer isAccept) {
+        return postDetailRepo.findListPostByOwnerId(ownerId, postId, isAccept);
     }
 
-//    @Override
-//    public List<PostDetail> findListByIsAccept(Integer value) {
-//        return postDetailRepo.findListByIsAccept(value);
-//    }
+    @Override
+    public List<Object[]> findByFilter(String postId, Integer locationId, Integer typeRoom, Integer area, Integer fromPrice, Integer toPrice) {
+        return postDetailRepo.findByFilter(postId, locationId, typeRoom, area, fromPrice, toPrice);
+    }
 
     @Override
     public List<Object[]> findListPostApi() {
         return postDetailRepo.findListPostApi();
+    }
+
+    @Override
+    public Object[] findOneByPostId(String postId) {
+        return postDetailRepo.findOneByPostId(postId);
+    }
+
+    @Override
+    public PostDetail findByPostId(String postId) {
+        return postDetailRepo.findByPostId(postId);
     }
 }

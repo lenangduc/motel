@@ -31,4 +31,9 @@ public class LocationAreaImpl extends GenericBoImpl<LocationArea, Long> implemen
         List<Object[]> objects = locationAreaRepo.findAllByAdministrativeLevel();
         return BaseChoiceHelper.buildList(objects);
     }
+
+    @Override
+    public List<Object[]> findLocationAreaApi(){
+        return locationAreaRepo.findAllByAdministrativeLevel();
+    }
 }

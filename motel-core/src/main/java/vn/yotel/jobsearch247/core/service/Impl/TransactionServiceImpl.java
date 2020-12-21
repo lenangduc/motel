@@ -21,12 +21,14 @@ public class TransactionServiceImpl extends GenericBoImpl<Transaction, Long> imp
     private TransactionRepo transactionRepo;
 
     @Override
-    public List<Object[]> findByPostId(String post) {
-        return transactionRepo.findByPostId(post);
+    public List<Object[]> findByPostId(String post, Long ownerId) {
+        return transactionRepo.findByPostId(post, ownerId);
     }
 
     @Override
     public <E extends JpaRepository<Transaction, Long>> E getDAO() {
         return (E)transactionRepo;
     }
+
+
 }

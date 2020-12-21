@@ -26,6 +26,19 @@
                                 </li>
                             </ul>
                         </li>
+                        <li sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_OWNER')">
+                            <a><i class="fa fa-user"></i>Quản Lý Tài khoản<span class="fa fa-chevron-down"></span></a>
+                            <ul class="nav child_menu">
+                                <li sec:authorize="hasAnyAuthority('ROLE_PARTNER_ADMIN')">
+                                    <a th:href="@{/account/show_profile.html}">Hồ sơ cá nhân</a>
+                                </li>
+                                <li sec:authorize="hasAnyAuthority( 'ROLE_ADMIN')">
+                                    <a th:href="@{/account/user_list.html}">Danh sách tài khoản</a>
+                                </li>
+                                <li><a th:href="@{/account/change_password.html}">Đổi mật khẩu</a></li>
+                                <li><a th:href="@{/logout.html}">Đăng xuất</a></li>
+                            </ul>
+                        </li>
 
                     </ul>
                 </div>

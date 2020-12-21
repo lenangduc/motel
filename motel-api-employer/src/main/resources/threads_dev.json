@@ -1,0 +1,24 @@
+{
+  "threads": [
+    {
+      "id":"ProcessUpdatefbCandidateInfo-001",
+      "order":0,
+      "name":"Process Update fb candidate info",
+      "className":"vn.yotel.jobsearch247.api.employer.web.thread.ProcessUpdateFbCandidateInfo",
+      "autoStart":true,
+      "delayTime":60,
+      "params": {
+      }
+    },
+    {
+      "id":"JvmGCThread",
+      "order":9999,
+      "name":"JvmGCThread",
+      "className":"vn.yotel.utils.thread.JvmGCThread",
+      "autoStart":true,
+      "delayTime":180,
+      "params": {
+      }
+    }
+  ]
+}

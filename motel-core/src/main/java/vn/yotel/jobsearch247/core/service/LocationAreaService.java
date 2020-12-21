@@ -8,4 +8,7 @@ import java.util.List;
 
 public interface LocationAreaService extends GenericBo<LocationArea, Long> {
     List<BaseChoice> findAllByAdministrativeLevel();
+
+    List<Object[]> findLocationAreaApi();
+
 }

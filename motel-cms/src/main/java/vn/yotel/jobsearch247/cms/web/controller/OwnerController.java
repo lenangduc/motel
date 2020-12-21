@@ -28,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,10 +58,12 @@ public class OwnerController {
     ObjectMapper objectMapper = new ObjectMapper();
 
     @RequestMapping(value = "list-post", method = RequestMethod.GET)
-    public String listPost(Model model, Principal principal) {
+    public String listPost(@RequestParam(value = "post_id", required = false) String postId,
+                           @RequestParam(value = "isAccept", required = false) Integer isAccept,
+                           Model model, Principal principal) {
         AuthUser authUser = authUserService.findByUsername(principal.getName());
         Long ownerId = ownerService.findByAccountId(authUser.getId());
-        List<Object[]> postLists = postDetailService.findListPostByOwnerId(ownerId);
+        List<Object[]> postLists = postDetailService.findListPostByOwnerId(ownerId, postId, isAccept);
         List<PostListModel> postListModels = PostListHelper.parsePostLists(postLists);
         for ( PostListModel postListModel : postListModels) {
             Integer status = 1;
@@ -73,6 +76,8 @@ public class OwnerController {
             }
             postListModel.setStatus(status);
         }
+        model.addAttribute("post_id", postId);
+        model.addAttribute("isAccept", isAccept);
         model.addAttribute("posts", postListModels);
         return "Post/List";
     }
@@ -239,7 +244,8 @@ public class OwnerController {
                 image += "/upload/" + fileName;
                 image += ",";
                 fileNames.add(fileName);
-                File imageFile = new File("F:\\documents\\WEB\\motelUpload\\", fileName);
+                File imageFile = new File("/home/motel/tomcat8-motel/motel-upload/", fileName);
+//                File imageFile = new File("F:\\documents\\WEB\\motelUpload\\", fileName);
                 try {
                     multipartFile.transferTo(imageFile);
                 } catch (IOException e) {

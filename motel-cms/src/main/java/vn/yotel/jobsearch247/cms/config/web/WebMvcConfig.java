@@ -42,7 +42,8 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/", "classpath:/META-INF/web-resources/");
 		registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
 		registry.addResourceHandler("/assets/**").addResourceLocations("/", "/assets/", "classpath:/META-INF/web-assets/");
-		registry.addResourceHandler("/upload/**").addResourceLocations( "file:///F:/documents/WEB/motelUpload/");
+		registry.addResourceHandler("/upload/**").addResourceLocations( "file:/home/motel/tomcat8-motel/motel-upload/");
+//		registry.addResourceHandler("/upload/**").addResourceLocations( "file:///F:/documents/WEB/motelUpload/");
 	}
 
 	@Bean
