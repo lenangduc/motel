@@ -27,10 +27,7 @@ import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.security.Principal;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -282,7 +279,7 @@ public class OwnerController {
         model.addAttribute("path", listPathImg);
         model.addAttribute("duration", duration);
         model.addAttribute("posts", postDetail);
-        return "PostDetail/Detail1";
+        return "PostDetail/Extend";
     }
 
     @RequestMapping(value = "/extend", method = RequestMethod.GET)

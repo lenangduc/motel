@@ -2,121 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Đăng kí - gia hạn bài đăng</title>
+    <title>Gia hạn bài đăng</title>
     <content th:replace="fragments/init :: head"></content>
     <style>
         #errorMessage {
             padding: 8px;
             background-color: #ff816b;
         }
-        .title {
-            font-size: 20px;
-        }
 
-        .block {
-            display: flex;
-        }
-
-        .block-2 {
-            margin-top: 10px;
-            line-height: 1.6;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .block-2-1 {
-            border: 1px dotted;
-            border-radius: 10px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .block-1 {
-            text-align: center;
-        }
-
-        .content {
-            padding: 10px;
-        }
-
-        .post-content {
-            border-radius: 3px;
-            max-width: 600px;
-            margin: 20px 20px 10px 25px;
-            border: 1px solid #f1f1f705;
-            background: #c6dcef17;
-        }
-
-        .comment {
-            margin-left: 15px;
-            margin-bottom: 10px;
-        }
-
-        .cmt-author {
-            font-size: 1.1em;
-            margin-top: 5px;
-            margin-left: 20px;
-        }
-
-        .cmt-content {
-            background: #efefef8f;
-            border-radius: 0 20px 20px 17px;
-            margin-left: 30px;
-            margin-right: 20px;
-        }
-
-        .form_update {
-            margin-left: 40px;
-            flex-grow: 1;
-            margin-top: 10px;
-            line-height: 1.6;
-        }
-
-        .form-update-1 {
-            min-width: 300px;
-        }
-
-        .tags {
-            margin-left: 10px;
-            margin-top: 10px;
-            display: grid;
-        }
-
-        .input {
-            margin-top: 5px;
-            border-radius: 3px;
-            min-width: 100%;
-            border: 1px solid #908a8a;
-        }
-
-        .infor-title {
-            margin-left: 3px;
-        }
-
-        .submit {
-            margin-top: 10px;
-            display: grid;
-            margin-left: 10px;
-        }
-
-        .author-post {
-            margin-right: 24px;
-            font-size: 1.1em;
-            text-align: right;
-            margin-bottom: 10px;
-        }
-
-        .content-detail {
-            text-align: right;
-            margin-right: 25px;
-            margin-bottom: 10px;
-        }
-
-        .position-relative {
-            position: relative;
-        }
 
     </style>
 </head>
@@ -132,7 +25,7 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <div class="nav toggle" style="width: auto;padding-top: 10px">
-                        <b id="titlePage" style="font-size: x-large; color: white"> Đăng kí - gia hạn bài đăng </b>
+                        <b id="titlePage" style="font-size: x-large; color: white">Gia hạn bài đăng</b>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <content th:replace="fragments/top-nav :: li_user"></content>
@@ -145,7 +38,10 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
                     <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
                         <li class="breadcrumb-item active">Quản lý</li>
-                        <li class="breadcrumb-item active" >Đăng kí - gia hạn bài đăng</li>
+                        <li  sec:authorize="hasAnyAuthority('ROLE_ADMIN','ROLE_PARTNER_ADMIN')" class="breadcrumb-item">
+                            <a th:href="@{/owner/list-post}" data-toggle="tooltip" > Danh sách bài đăng  </a>
+                        </li>
+                        <li class="breadcrumb-item active">Gia hạn</li>
                     </ol>
                 </div>
             </div>
@@ -155,41 +51,116 @@
                     <div class="x_panel">
                         <div class="x_content">
                             <form style="margin-left: 5px; padding-bottom: 20px" th:object="${posts}"  th:action="@{/owner/extend}" method="GET" >
-                                <div class="block">
-<!--                                    <div class="block-2">-->
-<!--                                        <div class = "title block-1">-->
-<!--                                            <span>  Đăng kí hoặc gia hạn </span>-->
-<!--                                            <span th:text="${posts.postId}" style="font-size: 20px; color: #03aee2;"> </span>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-                                    <div class="form_update">
-                                        <div class="title block-1">
-                                            <span>  Đăng kí hoặc gia hạn </span>
-                                            <span th:text="${posts.postId}" style="font-size: 20px; color: #03aee2;"> </span>
+                                <div class="row">
+                                    <input hidden th:field="*{id}"/>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class = "">
+                                            <span> Bài đăng mã số : </span>
+                                            <span th:text="*{postId}" style="font-size: 20px; color: #03aee2;"> </span>
                                         </div>
-                                        <div class="form-update-1">
-                                            <div class="tags form-group">
-                                                <input hidden th:field="*{id}" name="id"/>
-                                                <span class="infor-title"> Gói cước </span>
-                                                <div class="position-relative">
-                                                    <div>
-                                                        <select class="form-control selectpicker" name="duration" th:value="${duration}">
-                                                            <option value="1"> 1 Tuần - 10.000VNĐ </option>
-                                                            <option value="4"> 1 Tháng - 40.000VNĐ </option>
-                                                            <option value="12"> 1 Quý - 100.000VNĐ</option>
-                                                            <option value="48"> 1 Năm - 300.000VNĐ </option>
-                                                        </select>
+                                        <div class="block-2-1">
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Địa chỉ: </span>
+                                                <span th:text="*{addressRoom}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> kiểu phòng: </span>
+                                                <span th:if="${posts.roomType} == 0 ">Phòng trọ</span>
+                                                <span th:if="${posts.roomType} == 1 ">Chung cư mini</span>
+                                                <span th:if="${posts.roomType} == 2 ">Nhà nguyên căn</span>
+                                                <span th:if="${posts.roomType} == 3 ">Chung cư nguyên căn</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Số lượng phòng: </span>
+                                                <span th:text="*{amountRow}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Diện tích: </span>
+                                                <span th:text="*{area}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá thuê: </span>
+                                                <span th:text="*{priceRoom}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Chung chủ: </span>
+                                                <span th:if="${posts.withOwner} == 0 ">Không chung chủ</span>
+                                                <span th:if="${posts.withOwner} == 1 ">Chung chủ</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Phòng tắm: </span>
+                                                <span th:if="${posts.bathroom} == 0 ">Khép kín</span>
+                                                <span th:if="${posts.bathroom} == 1 ">Chung</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Bếp: </span>
+                                                <span th:if="${posts.kitchen} == 0 ">Không có</span>
+                                                <span th:if="${posts.kitchen} == 1 ">Có</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Bình nóng lạnh: </span>
+                                                <span th:if="${posts.heater} == 0 ">Không có</span>
+                                                <span th:if="${posts.heater} == 1 ">Có</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Ban công: </span>
+                                                <span th:if="${posts.balcony} == 0 ">Không có</span>
+                                                <span th:if="${posts.balcony} == 1 ">Có</span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá nước: </span>
+                                                <span th:text="*{waterPrice}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Giá điện: </span>
+                                                <span th:text="*{electricityPrice}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Những địa điểm gần đây: </span>
+                                                <span th:name="addressRelated" th:text="*{addressRelated}" readonly ></span>
+                                            </div>
+                                            <div class="content post-content">
+                                                <span style="color: blue; font-size: 20px"> Tiện ích khác: </span>
+                                                <span th:name="otherUtility" th:text="*{otherUtility}" readonly ></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-xs-12">
+                                        <div class = "">
+                                            <div  >
+                                                <div class="form-group">
+                                                    <label style="display: inline-flex;">Hình ảnh</label>
+                                                    <div th:each="item :${path}"  >
+                                                        <img  th:width="100px" th:src="'http://webdatienloi.com:8765' + ${item}" alt="Chưa có hình ảnh"  />
+<!--                                                        <img  th:width="100px" th:src="'http://localhost:8080' + ${item}" alt="Chưa có hình ảnh"  />-->
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-xs-12">
-                                                <div class="form-group pull-left">
-                                                    <button type="submit" id="btnSubmit" class="btn btn-round btn-basic-yotel">Cập
-                                                        nhật
-                                                    </button>
-                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="col-lg-2 col-xs-12">
+                                        <span> Gói cước </span>
+                                        <div class="position-relative">
+                                            <div th:if = "${duration} == -1">
+                                                <select class="form-control selectpicker" name="duration" th:value="${duration}">
+                                                    <option value="1"> 1 Tuần - 10.000VNĐ </option>
+                                                    <option value="4"> 1 Tháng - 40.000VNĐ </option>
+                                                    <option value="12"> 1 Quý - 100.000VNĐ</option>
+                                                    <option value="48"> 1 Năm - 300.000VNĐ </option>
+                                                </select>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12">
+                                    <div class="form-group pull-left">
+                                        <button  sec:authorize="hasAnyAuthority('ROLE_ADMIN')"
+                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
+                                        <button  th:if = "*{isAccept == 0}"  sec:authorize="hasAnyAuthority('ROLE_OWNER')"
+                                                 type="submit"  class="btn btn-submit ripple ripple-js" >Cập nhật</button>
+                                        <a href="#" onclick=" window.history.go(-1);" class="btn btn-round btn-cancel-yotel">Hủy bỏ</a>
                                     </div>
                                 </div>
                             </form>
