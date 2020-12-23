@@ -65,6 +65,16 @@
                     </div>
                     <div class="nav navbar-nav navbar-right">
                         <content th:replace="fragments/top-nav :: li_user"></content>
+                        <li role="presentation" class="nav-item dropdown"  style="margin-top: 6px">
+                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                               data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell-o bell-icon"></i>
+                            </a>
+                            <ul class="dropdown-menu list-unstyled msg_list" role="menu" id = "notify-list"
+                                aria-labelledby="navbarDropdown1" x-placement="bottom-start"
+                                style="position: absolute; right: 0px; top: 55px;">
+                            </ul>
+                        </li>
                     </div>
                 </nav>
             </div>

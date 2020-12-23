@@ -18,6 +18,8 @@ public class PostListModel implements Serializable {
     private Integer isAccept;
     private Integer isRental;
     private Integer status;
+    private Integer star;
+    private Integer amountCare;
 
     public PostListModel() {
 

@@ -14,7 +14,7 @@ import java.util.List;
 public interface PostDetailRepo extends JpaRepository<PostDetail, Long> {
 
 
-    @Query( value = "select p.id, p.post_id, p.date_post, p.date_expired, p.address_room, p.is_accept, p.is_rental, p.status " +
+    @Query( value = "select p.id, p.post_id, p.date_post, p.date_expired, p.address_room, p.is_accept, p.is_rental, p.status, p.star, p.care " +
             " from post_detail p " +
             " where (:ownerId is null or p.owner_id = :ownerId) " +
             " and (p.post_id = :postId or :postId is null or :postId = '')" +
@@ -28,20 +28,20 @@ public interface PostDetailRepo extends JpaRepository<PostDetail, Long> {
 
     @Query( value = "select p.id, p.post_id, a.user_name, o.phone_number, o.email, p.address_room, p.address_related, p.room_type, " +
             " p.amount_room, p.price_room, p.with_owner, p.bathroom, p.heater, p.kitchen, p.balcony, p.electricity_price, " +
-            " p.water_price, p.other_utility, p.Img_path, p.area " +
+            " p.water_price, p.other_utility, p.Img_path, p.area, p.star, p.care " +
             " from post_detail p" +
             " join owner o on o.id = p.owner_id " +
             " join auth_user a on a.id = o.account_id " +
-            " ", nativeQuery = true)
+            " where p.status = 1 and p.is_rental = 0 and p.is_accept = 1 ", nativeQuery = true)
     List<Object[]> findListPostApi();
 
     @Query( value = "select p.id, p.post_id, a.user_name, o.phone_number, o.email, p.address_room, p.address_related, p.room_type, " +
             " p.amount_room, p.price_room, p.with_owner, p.bathroom, p.heater, p.kitchen, p.balcony, p.electricity_price, " +
-            " p.water_price, p.other_utility, p.Img_path, p.area " +
+            " p.water_price, p.other_utility, p.Img_path, p.area , p.star, p.care" +
             " from post_detail p" +
             " join owner o on o.id = p.owner_id " +
             " join auth_user a on a.id = o.account_id " +
-            " where ( p.post_id = :postId or :postId is null ) " +
+            " where ( p.post_id = :postId or :postId is null ) and p.status = 1 and p.is_rental = 0 and p.is_accept = 1 " +
             " and ( p.location_area = :locationId or :locationId is null ) " +
             " and ( p.room_type = :typeRoom or :typeRoom is null ) " +
             " and ( p.area = :area or :area is null ) " +
@@ -51,7 +51,7 @@ public interface PostDetailRepo extends JpaRepository<PostDetail, Long> {
 
     @Query( value = "select p.id, p.post_id, a.user_name, o.phone_number, o.email, p.address_room, p.address_related, p.room_type, " +
             " p.amount_room, p.price_room, p.with_owner, p.bathroom, p.heater, p.kitchen, p.balcony, p.electricity_price, " +
-            " p.water_price, p.other_utility, p.Img_path, p.area " +
+            " p.water_price, p.other_utility, p.Img_path, p.area, p.care " +
             " from post_detail p" +
             " join owner o on o.id = p.owner_id " +
             " join auth_user a on a.id = o.account_id " +

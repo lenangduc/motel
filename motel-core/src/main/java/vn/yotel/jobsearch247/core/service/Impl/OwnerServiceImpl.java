@@ -9,6 +9,7 @@ import vn.yotel.jobsearch247.core.repository.OwnerRepo;
 import vn.yotel.jobsearch247.core.service.OwnerService;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service(value = "ownerService")
 @Slf4j
@@ -27,5 +28,8 @@ public class OwnerServiceImpl extends GenericBoImpl<Owner, Long> implements Owne
         return ownerRepo.findByAccountId(id);
     }
 
-
+    @Override
+    public List<Object[]> getAll(Long id) {
+        return ownerRepo.getAll(id);
+    }
 }

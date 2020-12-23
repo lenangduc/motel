@@ -15,7 +15,9 @@
     .navbar-nav .open .dropdown-menu.msg_list {
         width: 250px;
     }
-
+    ul.msg_list li a .message {
+        font-size: 13.5px;
+    }
 
 </style>
 <body class="nav-md">
@@ -39,18 +41,16 @@
                         <li>
                             <content th:replace="fragments/top-nav :: li_user"></content>
                         </li>
-                        <li role="presentation" class="nav-item dropdown open"  style="margin-top: 6px">
+                        <li role="presentation" class="nav-item dropdown"  style="margin-top: 6px">
                             <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
                                data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge bg-green">*</span>
+                                <i class="fa fa-bell-o bell-icon"></i>
                             </a>
                             <ul class="dropdown-menu list-unstyled msg_list" role="menu" id = "notify-list"
                                 aria-labelledby="navbarDropdown1" x-placement="bottom-start"
                                 style="position: absolute; right: 0px; top: 55px;">
                             </ul>
                         </li>
-
                     </div>
                 </nav>
             </div>
@@ -99,6 +99,8 @@
                                     <th>Địa điểm</th>
                                     <th>TT duyệt</th>
                                     <th>TT thuê</th>
+                                    <th>Đánh giá</th>
+                                    <th>SL quan tâm</th>
                                     <th>Chi tiết</th>
                                     <th>Gia hạn</th>
                                     </thead>
@@ -127,11 +129,9 @@
                                                   th:status="${post.isRental}">
                                                 <input type="checkbox" class="js-switch" style="display: none"/>
                                             </span>
-                                            <span th:if="${post.isRental} == 1">Đã thuê</span>
-                                            <span th:if="${post.isRental} == 0"
-                                                  style="color: orangered"> Chưa thuê </span>
                                         </td>
-
+                                        <td th:text="${post.star}"></td>
+                                        <td th:text="${post.amountCare}"></td>
                                         <td class="text-center">
                                             <a th:href="@{'/owner/show/' + ${post.id}}">
                                                 <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel"
@@ -157,7 +157,7 @@
                                     </tbody>
                                 </table>
                             </div>
-<!--                            <content th:replace="fragments/panigator :: content(page = ${post})"></content>-->
+                            <!--                            <content th:replace="fragments/panigator :: content(page = ${post})"></content>-->
                         </div>
                     </div>
                 </div>
@@ -171,30 +171,6 @@
 
 <content th:replace="fragments/init :: script"></content>
 <script type="text/javascript">
-    setInterval(function () {
-        $.ajax({
-            url: APPLICATION_CONTEXT + "notification/list",
-            type: 'GET',
-            headers: {
-                accept: 'application/json'
-            },
-            data: {},
-            success: function (result) {
-                var notifyContentHtml = '';
-                for (var li of result) {
-                    notifyContentHtml  += `
-                        <li class="nav-item">
-                            <a class="dropdown-item">
-                            <span class="message">${li.content}</span>
-                            </a>
-                        </li>
-                    `;
-                }
-                $('#notify-list').html(notifyContentHtml);
-            },
-        }).always(function (ketqua) {
-        });
-    }, 3000)
 
     function changeStatus(id) {
         var currentStatus = $('#statusId' + id).attr("status");

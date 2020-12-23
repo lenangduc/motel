@@ -31,6 +31,8 @@ public class PostListHelper {
                 postListModel.setIsAccept(TypeConvert.parseObj(object[5], Integer.class));
                 postListModel.setIsRental(TypeConvert.parseObj(object[6], Integer.class));
                 postListModel.setStatus(TypeConvert.parseObj(object[7], Integer.class));
+                postListModel.setStar(TypeConvert.parseObj(object[8], Integer.class));
+                postListModel.setAmountCare(TypeConvert.parseObj(object[9], Integer.class));
                 PostLists.add(postListModel);
             }
         } catch (Exception ex) {

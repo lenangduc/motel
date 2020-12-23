@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import vn.yotel.admin.jpa.AuthUser;
 import vn.yotel.admin.service.AuthUserService;
+import vn.yotel.jobsearch247.cms.Helper.OwnerModelHelper;
 import vn.yotel.jobsearch247.cms.Helper.PostListHelper;
+import vn.yotel.jobsearch247.cms.Model.OwnerModel;
 import vn.yotel.jobsearch247.cms.Model.PostListModel;
 import vn.yotel.jobsearch247.cms.requestDto.PostDto;
 import vn.yotel.jobsearch247.core.jpa.Notification;
@@ -68,7 +70,6 @@ public class OwnerController {
     public List<BaseChoice> ListAccount() {
         try{
             List<BaseChoice> baseChoiceList = authUserBackService.getBaseChoiceAccountOwner();
-            System.out.println(baseChoiceList.size());
             return baseChoiceList;
         }catch (Exception e){
             log.error("", e);
@@ -76,6 +77,46 @@ public class OwnerController {
         }
     }
 
+    @RequestMapping(value = "/new-account", method = RequestMethod.GET)
+    public String newAccount( Model model, @ModelAttribute("owner") @Valid Owner owner) {
+        try{
+            owner.setStatus(1);
+            ownerService.create(owner);
+            return "redirect:/owner/list";
+        }catch (Exception e){
+            log.error("", e);
+            throw e;
+        }
+    }
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public String listOwner ( Model model) {
+        List<Object[]> Owners = ownerService.getAll(null);
+        List<OwnerModel> ownerList = OwnerModelHelper.parseOwnerLists(Owners);
+        model.addAttribute("owners", ownerList);
+        return "Owner/List";
+    }
+
+    @RequestMapping(value = "/account/show/update/{id}")
+    public String showFormUpdateAccount(Model model, @PathVariable(name = "id") Long id) {
+        List<Object[]> Owners = ownerService.getAll(id);
+        List<OwnerModel> ownerList = OwnerModelHelper.parseOwnerLists(Owners);
+        OwnerModel ownerModel = ownerList.get(0);
+        model.addAttribute("owner", ownerModel);
+        return "Owner/Update";
+    }
+
+    @RequestMapping(value = "/account/update", method = RequestMethod.POST)
+    public String updateAccount( @ModelAttribute("owner") @Valid OwnerModel ownerModel) {
+        Owner owner = ownerService.findOne(ownerModel.getId());
+        owner.setStatus(ownerModel.getStatus());
+        owner.setAddress(ownerModel.getAddress());
+        owner.setCmnd(ownerModel.getCmnd());
+        owner.setEmail(ownerModel.getEmail());
+        owner.setPhoneNumber(ownerModel.getPhoneNumber());
+        ownerService.update(owner);
+        return "redirect:/owner/list";
+    }
 
     @RequestMapping(value = "list-post", method = RequestMethod.GET)
     public String listPost(@RequestParam(value = "post_id", required = false) String postId,
@@ -140,6 +181,7 @@ public class OwnerController {
         Date dateExpired = postDetail.getDateExpired();
         Integer isAccept = postDetailView.getIsAccept();
         Integer status = postDetail.getStatus();
+        Integer isPay = postDetail.getIsPay();
         BeanUtils.copyProperties(postDetailView, postDetail);
         postDetail.setPostId(postId);
         postDetail.setAddressRelated(jsonAddressRelated);
@@ -150,6 +192,7 @@ public class OwnerController {
         postDetail.setDatePost(datePost);
         postDetail.setDateExpired(dateExpired);
         postDetail.setStatus(status);
+        postDetail.setIsPay(isPay);
         postDetailService.update(postDetail);
         // nếu mà duyệt thì cập nhập trạng thái thanh toán = 0.
         if ( postDetail.getIsAccept() == 1) {

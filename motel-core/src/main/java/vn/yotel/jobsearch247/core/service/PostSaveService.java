@@ -9,4 +9,6 @@ public interface PostSaveService extends GenericBo<PostSave, Long> {
     List<Object[]> findByUserId(Long userId);
 
     PostSave checkIsSave(Long userId, Long postId);
+
+    List<PostSave> findByPostId(Long id);
 }

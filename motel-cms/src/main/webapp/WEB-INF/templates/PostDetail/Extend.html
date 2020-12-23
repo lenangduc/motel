@@ -9,8 +9,56 @@
             padding: 8px;
             background-color: #ff816b;
         }
-
-
+        .post-code-title {
+            text-transform: uppercase;
+            font-size: 18px;
+        }
+        .post-content-wrapper{
+            background: #f5f5f5;
+            padding: 5px 15px;
+            margin-top:10px;
+            margin-bottom: 15px;
+        }
+        .content-img-wrapper, .post-content-wrapper {
+            border-radius: 3px;
+        }
+        .post-content-tbl tbody > tr >td:first-child{
+            color: #919191!important;
+            font-size: 15px;
+        }
+        .post-content-tbl tbody > tr:not(:last-child) >td {
+            border-bottom: 1px solid #fff;
+        }
+        .post-content-tbl tbody > tr >td {
+            padding: 7px;
+            line-height: 1.5;
+        }
+        .content-img-wrapper {
+            margin-top: 40px;
+            border: 1px solid #03aee2;
+            padding: 10px 15px;
+        }
+        .content-img-wrapper > div:not(:first-child) {
+            margin-top: 15px;
+            background:  #f5f5f5;
+            min-height: 170px;
+        }
+        .content-img-wrapper > div:not(:first-child), .content-img-wrapper > div img {
+            border-radius: 5px;
+        }
+        .content-img-wrapper > div img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .content-img-wrapper > div:nth-child(1),
+        .content-img-wrapper > div:nth-child(2){
+            margin-top: 0;
+        }
+        .content-img-title {
+            /*margin-top: 35px;*/
+            margin-bottom: 0;
+        }
     </style>
 </head>
 <body class="nav-md">
@@ -29,6 +77,16 @@
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <content th:replace="fragments/top-nav :: li_user"></content>
+                        <li role="presentation" class="nav-item dropdown"  style="margin-top: 6px">
+                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                               data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell-o bell-icon"></i>
+                            </a>
+                            <ul class="dropdown-menu list-unstyled msg_list" role="menu" id = "notify-list"
+                                aria-labelledby="navbarDropdown1" x-placement="bottom-start"
+                                style="position: absolute; right: 0px; top: 55px;">
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>
@@ -53,103 +111,122 @@
                             <form style="margin-left: 5px; padding-bottom: 20px" th:object="${posts}"  th:action="@{/owner/extend}" method="GET" >
                                 <div class="row">
                                     <input hidden th:field="*{id}"/>
-                                    <div class="col-lg-6 col-xs-12">
+                                    <div class="col-lg-8 col-xs-12">
                                         <div class = "">
-                                            <span> Bài đăng mã số : </span>
+                                            <span class="post-code-title"> Mã bài đăng : </span>
                                             <span th:text="*{postId}" style="font-size: 20px; color: #03aee2;"> </span>
                                         </div>
-                                        <div class="block-2-1">
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Địa chỉ: </span>
-                                                <span th:text="*{addressRoom}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> kiểu phòng: </span>
-                                                <span th:if="${posts.roomType} == 0 ">Phòng trọ</span>
-                                                <span th:if="${posts.roomType} == 1 ">Chung cư mini</span>
-                                                <span th:if="${posts.roomType} == 2 ">Nhà nguyên căn</span>
-                                                <span th:if="${posts.roomType} == 3 ">Chung cư nguyên căn</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Số lượng phòng: </span>
-                                                <span th:text="*{amountRow}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Diện tích: </span>
-                                                <span th:text="*{area}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Giá thuê: </span>
-                                                <span th:text="*{priceRoom}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Chung chủ: </span>
-                                                <span th:if="${posts.withOwner} == 0 ">Không chung chủ</span>
-                                                <span th:if="${posts.withOwner} == 1 ">Chung chủ</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Phòng tắm: </span>
-                                                <span th:if="${posts.bathroom} == 0 ">Khép kín</span>
-                                                <span th:if="${posts.bathroom} == 1 ">Chung</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Bếp: </span>
-                                                <span th:if="${posts.kitchen} == 0 ">Không có</span>
-                                                <span th:if="${posts.kitchen} == 1 ">Có</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Bình nóng lạnh: </span>
-                                                <span th:if="${posts.heater} == 0 ">Không có</span>
-                                                <span th:if="${posts.heater} == 1 ">Có</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Ban công: </span>
-                                                <span th:if="${posts.balcony} == 0 ">Không có</span>
-                                                <span th:if="${posts.balcony} == 1 ">Có</span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Giá nước: </span>
-                                                <span th:text="*{waterPrice}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Giá điện: </span>
-                                                <span th:text="*{electricityPrice}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Những địa điểm gần đây: </span>
-                                                <span th:name="addressRelated" th:text="*{addressRelated}" readonly ></span>
-                                            </div>
-                                            <div class="content post-content">
-                                                <span style="color: blue; font-size: 20px"> Tiện ích khác: </span>
-                                                <span th:name="otherUtility" th:text="*{otherUtility}" readonly ></span>
-                                            </div>
+                                        <div class="block-2-1 post-content-wrapper">
+                                            <table class="post-content-tbl">
+                                                <tbody>
+                                                <tr>
+                                                    <td> Địa chỉ:</td>
+                                                    <td><span th:text="*{addressRoom}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Kiểu phòng:</td>
+                                                    <td> <span th:if="${posts.roomType} == 0 ">Phòng trọ</span>
+                                                        <span th:if="${posts.roomType} == 1 ">Chung cư mini</span>
+                                                        <span th:if="${posts.roomType} == 2 ">Nhà nguyên căn</span>
+                                                        <span th:if="${posts.roomType} == 3 ">Chung cư nguyên căn</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Số lượng phòng:</td>
+                                                    <td><span th:text="*{amountRow}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Diện tích:</td>
+                                                    <td> <span th:text="*{area}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td> <span> Giá thuê: </span></td>
+                                                    <td><span th:text="*{priceRoom}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Chung chủ: </td>
+                                                    <td>
+                                                        <span th:if="${posts.withOwner} == 0 ">Không chung chủ</span>
+                                                        <span th:if="${posts.withOwner} == 1 ">Chung chủ</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Phòng tắm:</td>
+                                                    <td>
+                                                        <span th:if="${posts.bathroom} == 0 ">Khép kín</span>
+                                                        <span th:if="${posts.bathroom} == 1 ">Chung</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Bếp:</td>
+                                                    <td>
+                                                        <span th:if="${posts.kitchen} == 0 ">Không có</span>
+                                                        <span th:if="${posts.kitchen} == 1 ">Có</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Bình nóng lạnh:</td>
+                                                    <td>
+                                                        <span th:if="${posts.heater} == 0 ">Không có</span>
+                                                        <span th:if="${posts.heater} == 1 ">Có</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ban công:</td>
+                                                    <td>
+                                                        <span th:if="${posts.balcony} == 0 ">Không có</span>
+                                                        <span th:if="${posts.balcony} == 1 ">Có</span>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Giá nước: </td>
+                                                    <td> <span th:text="*{waterPrice}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Giá điện: </td>
+                                                    <td><span th:text="*{electricityPrice}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Những địa điểm gần đây:</td>
+                                                    <td><span th:name="addressRelated" th:text="*{addressRelated}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Tiện ích khác:</td>
+                                                    <td><span th:name="otherUtility" th:text="*{otherUtility}" readonly ></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Gói cước</td>
+                                                    <td>
+                                                        <div class="position-relative">
+                                                            <div th:if = "${duration} == -1">
+                                                                <select class="form-control selectpicker" name="duration" th:value="${duration}">
+                                                                    <option value="1"> 1 Ngày - 10.000VNĐ </option>
+                                                                    <option value="4"> 4 Ngày - 40.000VNĐ </option>
+                                                                    <option value="12"> 12 ngày- 100.000VNĐ </option>
+                                                                    <option value="20"> 20 ngày - 300.000VNĐ </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-xs-12">
+                                    <div class="col-lg-4 col-xs-12">
                                         <div class = "">
                                             <div  >
                                                 <div class="form-group">
-                                                    <label style="display: inline-flex;">Hình ảnh</label>
-                                                    <div th:each="item :${path}"  >
-                                                        <img  th:width="100px" th:src="'http://webdatienloi.com:8765' + ${item}" alt="Chưa có hình ảnh"  />
-<!--                                                        <img  th:width="100px" th:src="'http://localhost:8080' + ${item}" alt="Chưa có hình ảnh"  />-->
+                                                    <div class="content-img-wrapper">
+                                                        <div class="content-img-title">
+                                                            <label style="display: inline-flex;">Ảnh phòng</label>
+                                                        </div>
+                                                        <div th:each="item :${path}"  >
+                                                            <img th:width="100px" th:src="'http://webdatienloi.com:8765' + ${item}" alt="Chưa có hình ảnh"  />
+                                                            <!--                                                        <img  th:width="100px" th:src="'http://localhost:8080' + ${item}" alt="Chưa có hình ảnh"  />-->
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="col-lg-2 col-xs-12">
-                                        <span> Gói cước </span>
-                                        <div class="position-relative">
-                                            <div th:if = "${duration} == -1">
-                                                <select class="form-control selectpicker" name="duration" th:value="${duration}">
-                                                    <option value="1"> 1 Tuần - 10.000VNĐ </option>
-                                                    <option value="4"> 1 Tháng - 40.000VNĐ </option>
-                                                    <option value="12"> 1 Quý - 100.000VNĐ </option>
-                                                    <option value="48"> 1 Năm - 300.000VNĐ </option>
-                                                </select>
                                             </div>
                                         </div>
                                     </div>

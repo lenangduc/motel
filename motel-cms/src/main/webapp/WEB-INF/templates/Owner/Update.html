@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Thêm mới tài khoản chủ trọ</title>
+    <title>Cập nhật tài khoản chủ trọ</title>
     <content th:replace="fragments/init :: head"></content>
     <style>
         #errorMessage {
@@ -54,7 +54,6 @@
 <div class="container body">
     <div class="main_container">
         <content th:replace="fragments/menu-bar :: content"></content>
-        <input type="hidden" id="contextPath" th:value="@{/}">
         <div class="top_nav">
             <div class="nav_menu" style="background-color: seagreen">
                 <nav>
@@ -62,7 +61,7 @@
                         <a id="menu_toggle"><i class="fa fa-bars"></i></a>
                     </div>
                     <div class="nav toggle" style="width: auto;padding-top: 10px">
-                        <b id="titlePage" style="font-size: x-large; color: white">Thêm mới tài khoản chủ trọ</b>
+                        <b id="titlePage" style="font-size: x-large; color: white">Cập nhật tài khoản chủ trọ</b>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
                         <content th:replace="fragments/top-nav :: li_user"></content>
@@ -77,7 +76,6 @@
                             </ul>
                         </li>
                     </ul>
-
                 </nav>
             </div>
         </div>
@@ -86,7 +84,10 @@
                 <div class="col-md-12 col-sm-12 col-xs-12 breadcrumb-wrapper">
                     <ol class="breadcrumb breadcrumb-custom" style="background-color: #d7e2e4">
                         <li class="breadcrumb-item active">Quản lý</li>
-                        <li class="breadcrumb-item active">Thêm mới</li>
+                        <li class="breadcrumb-item">
+                            <a th:href="@{/owner/list}" data-toggle="tooltip" title="Trở Về Danh Sách">Danh sách tk chủ trọ</a>
+                        </li>
+                        <li class="breadcrumb-item active">Cập nhật</li>
                     </ol>
                 </div>
             </div>
@@ -95,46 +96,55 @@
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="x_panel">
                         <div class="x_content">
-                            <form class="addForm" th:object="${owner}" th:action="@{/owner/new-account}"
-                                  method="GET">
+                            <form class="addForm" th:object="${owner}" th:action="@{/owner/account/update}"
+                                  method="POST">
                                 <div class="alert alert-danger" id="errorMessage" style="text-align:left; color: white; font-weight: bold; font-size: 13px;"
                                      th:each="err: ${#fields.errors('*')}" th:text="${err}"></div>
                                 <div class="col-lg-6 col-xs-12">
+                                    <input style="display: none" name="id" th:field="*{id}">
                                     <div class="form-group">
-                                        <label style="display: inline-flex;">Số chứng minh thư nhân dân</label>
+                                        <label style="display: inline-flex;"> Tên đăng nhập</label>
                                         <div>
-                                            <input class="form-control" type="text" id="cmnd" name="cmnd" required th:field="*{cmnd}"/>
+                                            <input class="form-control" readonly th:field="*{userName}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label style="display: inline-flex;">Chứng minh nhân dân</label>
+                                        <div>
+                                            <input class="form-control" required th:field="*{cmnd}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Địa chỉ</label>
                                         <div>
-                                            <input class="form-control" type="text" id="address" name="address" required th:field="*{address}"/>
+                                            <input class="form-control" required th:field="*{address}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Số điện thoại</label>
                                         <div>
-                                            <input class="form-control" type="tel" id="phoneNumber" name="phoneNumber" required th:field="*{phoneNumber}"/>
+                                            <input class="form-control" type="tel" required th:field="*{phoneNumber}"/>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label style="display: inline-flex;">Email</label>
                                         <div>
-                                            <input class="form-control" type="tel" id="email" name="email" required th:field="*{email}"/>
+                                            <input class="form-control" required th:field="*{email}"/>
                                         </div>
                                     </div>
-                                    <div class="tags form-group">
-                                        <label style="display: inline-flex;"> Chọn Account <span style="color: red">&#42;</span></label>
-                                        <div class="position-relative">
-                                            <input id = "account-id" th:field="*{accountId}" hidden />
-                                            <input  class="form-control" id = "account_name" autocomplete="off" required/>
+                                    <div class="form-group">
+                                        <label>Trạng thái</label>
+                                        <div>
+                                            <select class="form-control selectpicker" th:field="*{status}">
+                                                <option value="1">Hoạt động</option>
+                                                <option value="0">Tạm dừng</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-xs-12">
                                     <div class="form-group pull-left">
-                                        <button type="submit" id="btnSubmit" class="btn btn-round btn-basic-yotel">Thêm mới</button>
+                                        <button type="submit" id="btnSubmit" class="btn btn-round btn-basic-yotel">Cập nhật</button>
                                         <a href="#" onclick=" window.history.go(-1);" class="btn btn-round btn-cancel-yotel">Hủy bỏ</a>
                                     </div>
                                 </div>
@@ -148,33 +158,13 @@
     <content th:replace="fragments/footer :: content"></content>
 </div>
 <content th:replace="fragments/init :: script"></content>
-<!-- FastClick -->
-<script th:src="@{/resources/gentelella-master/vendors/fastclick/lib/fastclick.js}"></script>
-<!-- jQuery Tags Input -->
-<script th:src="@{/resources/gentelella-master/vendors/jquery.tagsinput/src/jquery.tagsinput.js}"></script>
 
 <script type="text/javascript">
-    var location_autocomplete;
-    $.ajax({
-        url: APPLICATION_CONTEXT + "owner/list/account",
-        type: 'GET',
-        headers: {
-            accept: 'application/json'
-        },
-        data: {},
-        success: function (result) {
-            location_autocomplete =
-                autocomplete(document.getElementById("account_name"), result,
-                    function (selectedValue) {
-                        $('#account-id').val(selectedValue);
-                    });
-        },
-    }).always(function (ketqua) {
-    });
 
 </script>
 
 <script>
+
 
 </script>
 

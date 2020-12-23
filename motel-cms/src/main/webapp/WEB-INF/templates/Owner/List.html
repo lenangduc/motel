@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title> Danh sách chủ trọ</title>
+    <content th:replace="fragments/init :: head"></content>
+</head>
+<style>
+    #email_errors {
+        padding: 11px;
+        margin-bottom: 0px;
+        margin-top: 15px;
+    }
+
+    .navbar-nav .open .dropdown-menu.msg_list {
+        width: 250px;
+    }
+    ul.msg_list li a .message {
+        font-size: 13.5px;
+    }
+</style>
+<body class="nav-md">
+<input type="hidden" id="application-context" th:value="@{/}"/>
+<div class="container body">
+    <div class="main_container">
+        <content th:replace="fragments/menu-bar :: content"></content>
+        <div class="top_nav">
+            <div class="nav_menu" style="background-color: seagreen">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <div class="nav toggle" style="width: auto;padding-top: 10px">
+                        <b id="titlePage" style="font-size: x-large; color: white">Danh sách chủ trọ</b>
+                    </div>
+                    <div class="nav navbar-nav navbar-right">
+                        <li>
+                            <content th:replace="fragments/top-nav :: li_user"></content>
+                        </li>
+                        <li role="presentation" class="nav-item dropdown"  style="margin-top: 6px">
+                            <a href="javascript:;" class="dropdown-toggle info-number" id="navbarDropdown1"
+                               data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell-o bell-icon"></i>
+                            </a>
+                            <ul class="dropdown-menu list-unstyled msg_list" role="menu" id = "notify-list"
+                                aria-labelledby="navbarDropdown1" x-placement="bottom-start"
+                                style="position: absolute; right: 0px; top: 55px;">
+                            </ul>
+                        </li>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="right_col" role="main" style="min-height: 100vh">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="x_panel">
+                        <div class="x_content">
+                            <div class="panel-table-wrapper custom-scroll" style="overflow-x:auto;">
+                                <table class="table table-responsive table-striped table-bordered table-hover">
+                                    <thead>
+                                    <th>Stt</th>
+                                    <th>Tên đăng nhập</th>
+                                    <th>Chứng minh thư nhân dân</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Email</th>
+                                    <th>Hành động</th>
+                                    </thead>
+                                    <tbody th:if="${owners} != null">
+                                    <tr th:each="owner, iterStat : ${owners}">
+                                        <td th:text="${iterStat.count}"></td>
+                                        <td th:text="${owner.userName}"></td>
+                                        <td th:text="${owner.cmnd}"></td>
+                                        <td th:text="${owner.address}"></td>
+                                        <td th:text="${owner.phoneNumber}"></td>
+                                        <td th:text="${owner.email}"></td>
+                                        <td class="text-center">
+                                            <a th:href="@{'/owner/account/show/update/' + ${owner.id}}">
+                                                <button type="button" class="btn btn-round btn-basic-yotel btn-sm-yotel"
+                                                        title="Cụ thể"><i
+                                                        class="fa fa-eye"> </i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!--                            <content th:replace="fragments/panigator :: content(page = ${post})"></content>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- row -->
+        </div>
+    </div>
+    <content th:replace="fragments/footer :: content"></content>
+</div>
+<!-- /#wrapper -->
+
+<content th:replace="fragments/init :: script"></content>
+<script type="text/javascript">
+
+
+
+</script>
+<script type="text/javascript">
+</script>
+</body>
+
+</html>

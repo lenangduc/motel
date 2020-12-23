@@ -18,6 +18,7 @@ import vn.yotel.admin.jpa.AuthUser;
 import vn.yotel.admin.jpa.Role;
 import vn.yotel.admin.service.AuthRoleService;
 import vn.yotel.admin.service.AuthUserService;
+import vn.yotel.jobsearch247.api.employer.ConextFacade.AuthenticationFacade;
 import vn.yotel.jobsearch247.api.employer.Server.AuthUserDataService;
 import vn.yotel.jobsearch247.api.employer.config.oauthen2.token.OAuthUtils;
 import vn.yotel.jobsearch247.api.employer.web.constant.Constant;
@@ -26,6 +27,7 @@ import vn.yotel.jobsearch247.api.employer.web.enums.UserStatusEnum;
 import vn.yotel.jobsearch247.api.employer.web.model.AuthUserData;
 import vn.yotel.jobsearch247.api.employer.web.model.ResponseData;
 import vn.yotel.jobsearch247.api.employer.web.requestDto.LoginDto;
+import vn.yotel.jobsearch247.api.employer.web.requestDto.UserNewPasswordDto;
 import vn.yotel.jobsearch247.api.employer.web.requestDto.UserRegisterDto;
 import vn.yotel.jobsearch247.api.employer.web.util.RestResponseBuilder;
 import vn.yotel.jobsearch247.core.jpa.OAuthAccessToken;
@@ -61,6 +63,9 @@ public class UsersController {
 
     @Autowired
     private ConsumerTokenServices tokenServices;
+
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
 
     @Transactional
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -190,6 +195,37 @@ public class UsersController {
             return RestResponseBuilder.buildSuccess(null);
         } catch (Exception e) {
             log.error("", e);
+            return RestResponseBuilder.buildRuntimeError(null);
+        }
+    }
+
+    @Transactional
+    @RequestMapping(value = "/new-password", method = RequestMethod.POST)
+    public ResponseEntity<ResponseData> newPassword(
+            @RequestBody UserNewPasswordDto userNewPasswordDto) {
+
+        Map<String, Object> responseMap = new HashMap<>();
+        try {
+            String userName = userNewPasswordDto.getUserName();
+            String oldPassword = userNewPasswordDto.getOldPassword();
+            String newPassword = userNewPasswordDto.getNewPassword();
+            if (StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword) ||
+                    oldPassword.equals(newPassword)) {
+                responseMap.put("valid", "Valid dữ liệu thất bại");
+                return RestResponseBuilder.buildValidError(responseMap);
+            }
+            AuthUser authUser = authUserService.findByUsername(userName);
+            if (!passwordEncoder.matches(oldPassword, authUser.getPassword())) {
+                responseMap.put("oldPassword", "Sai password");
+                return RestResponseBuilder.buildValidError(responseMap);
+            }
+            String newEncodedPassword = passwordEncoder.encode(newPassword);
+            authUser.setPassword(newEncodedPassword);
+            authUserService.update(authUser);
+            return RestResponseBuilder.buildSuccess(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            log.error("", ex);
             return RestResponseBuilder.buildRuntimeError(null);
         }
     }

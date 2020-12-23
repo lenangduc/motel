@@ -92,6 +92,12 @@ public class PostDetail implements Serializable {
     @Column ( name = "status")
     private Integer status;
 
+    @Column(name = "star")
+    private Integer star;
+
+    @Column(name = "care")
+    private Integer care;
+
     public enum isAccept {
         ACCEPT(1), NOT_ACCEPT(0), EXPIRED(2);
 

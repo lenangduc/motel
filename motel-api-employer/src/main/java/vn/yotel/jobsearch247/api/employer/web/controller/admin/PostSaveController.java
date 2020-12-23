@@ -35,6 +35,10 @@ public class PostSaveController {
                 postSave1.setUserId(savePostDto.getUserId());
                 postSave1.setPostId(postDetail.getId());
                 postSaveService.create(postSave1);
+
+                List<PostSave> postSaves = postSaveService.findByPostId(postDetail.getId());
+                postDetail.setCare(postSaves.size());
+                postDetailService.update(postDetail);
                 return "Success";
             } else {
                 return "Ban da luu r";

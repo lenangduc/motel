@@ -32,4 +32,9 @@ public class PostSaveServiceImpl extends GenericBoImpl<PostSave, Long> implement
     public PostSave checkIsSave(Long userId, Long postId) {
         return postSaveRepo.checkIsSave(userId, postId);
     }
+
+    @Override
+    public List<PostSave> findByPostId(Long id) {
+        return postSaveRepo.findByPostId(id);
+    }
 }

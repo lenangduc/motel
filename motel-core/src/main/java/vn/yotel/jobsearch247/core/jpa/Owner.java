@@ -30,6 +30,9 @@ public class Owner implements Serializable {
     @Column( name = "email")
     private String email;
 
+    @Column( name = "status")
+    private Integer status;
+
     public Owner() {
 
     }

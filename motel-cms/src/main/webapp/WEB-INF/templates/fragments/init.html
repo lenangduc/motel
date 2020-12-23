@@ -240,6 +240,15 @@
             background-color: DodgerBlue !important;
             color: #ffffff;
         }
+
+        .bell-icon:after {
+            content:"";
+            width: 6px;
+            height: 6px;
+            position: absolute;
+            border-radius: 100%;
+            background: red;
+        }
     </style>
 </content>
 
@@ -307,6 +316,36 @@
                 'goToPageUrl' : goToPageUrl
             }
         })()
+
+        function loadNotify() {
+            $.ajax({
+                url: APPLICATION_CONTEXT + "notification/list",
+                type: 'GET',
+                headers: {
+                    accept: 'application/json'
+                },
+                data: {},
+                success: function (result) {
+                    var notifyContentHtml = '';
+                    for (var li of result) {
+                        notifyContentHtml  += `
+                        <li class="nav-item">
+                            <a class="dropdown-item">
+                            <span class="message">${li.content}</span>
+                            </a>
+                        </li>
+                    `;
+                    }
+                    $('#notify-list').html(notifyContentHtml);
+                    setTimeout(function () {
+                        // loadNotify();
+                    }, 2000);
+                },
+            }).always(function (ketqua) {
+            });
+        }
+
+        loadNotify();
     </script>
 
     <script>

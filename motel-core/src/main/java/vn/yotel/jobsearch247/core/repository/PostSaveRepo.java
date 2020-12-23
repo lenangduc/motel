@@ -23,4 +23,7 @@ public interface PostSaveRepo extends JpaRepository<PostSave, Long> {
             " where p.user_id = :userId and p.post_id = :postId " +
             " ", nativeQuery = true)
     PostSave checkIsSave(@Param("userId") Long userId, @Param("postId") Long postId);
+
+    @Query( value = "select p from PostSave p where p.postId = :id ", nativeQuery = false)
+    List<PostSave> findByPostId(@Param("id") Long id);
 }
